@@ -11,11 +11,11 @@
                 <div class="p-2">
                     <div class="row">
                         <div class="col">
-                            <label for="identifikationsnummer" class="form-label">Identifikationsnummer Prämienberechtigte(r) *</label>
+                            <label for="identifikationsnummer" class="form-label"><strong>Identifikationsnummer Prämienberechtigte(r) *</strong></label>
                             <input type="text" class="form-control" id="identifikationsnummer" placeholder="Identifikationsnummer Prämienberechtigte(r)" aria-label="Identifikationsnummer Prämienberechtigte(r)">
                         </div>
                         <div class="col">
-                            <label for="identifikationsnummerEhegatte" class="form-label">Identifikationsnummer Ehegatte/Lebenspartner *</label>
+                            <label for="identifikationsnummerEhegatte" class="form-label"><strong>Identifikationsnummer Ehegatte/Lebenspartner *</strong></label>
                             <input type="text" class="form-control" id="identifikationsnummerEhegatte" placeholder="Identifikationsnummer Ehegatte/Lebenspartner" aria-label="Identifikationsnummer Ehegatte/Lebenspartner">
                         </div>
                     </div>
@@ -26,20 +26,37 @@
                 </div>
 
                 <div class="p-2">
-                    <div class="mb-3">
-                        <label for="praemienberechtigter" class="form-label">Prämienberechtigte(r) (Familienname, Vorname)</label>
-                        <input type="text" class="form-control" id="praemienberechtigter" placeholder="Familienname, Vorname">
-                    </div>
-                </div>
-                <div class="p-2">
-                    <div class="mb-3">
-                        <label for="ehegatteLebenspartner" class="form-label">Ehegatte/Lebenspartner * (Familienname, Vorname)</label>
-                        <input type="text" class="form-control" id="ehegatteLebenspartner" placeholder="Familienname, Vorname">
+                    <div class="row">
+                        <label for="ehegatteLebenspartner" class="form-label"><strong>Prämienberechtigte(r) *</strong></label>
+                        <div class="col">
+                        <input type="text" class="form-control" placeholder="Familienname" aria-label="Familienname">
+                        </div>
+                        <div class="col">
+                        <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Geburtsdatum" aria-label="Geburtsdatum">
+                        </div>
                     </div>
                 </div>
 
                 <div class="p-2">
-                    <h6>Wohnsitz des/der Prämienberechtigten bei Antragstellung (Straße, Hausnummer, Postleitzahl, Ort)</h6>
+                    <div class="row">
+                        <label for="ehegatteLebenspartner" class="form-label"><strong>Ehegatte/Lebenspartner *</strong></label>
+                        <div class="col">
+                        <input type="text" class="form-control" placeholder="Familienname" aria-label="Familienname">
+                        </div>
+                        <div class="col">
+                        <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
+                        </div>
+                        <div class="col">
+                            <input type="text" class="form-control" placeholder="Geburtsdatum" aria-label="Geburtsdatum">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="p-2">
+                    <p><strong>Wohnsitz</strong> des/der Prämienberechtigten bei Antragstellung*</p>
                     <form class="row g-3">
                         <div class="col-12">
                             <label for="strasse" class="form-label">Straße</label>
@@ -47,12 +64,19 @@
                         </div>
                         <div class="col-12">
                             <label for="hausnummer" class="form-label">Hausnummer</label>
-                            <input type="text" class="form-control" id="hausnummer" placeholder="Hausnummer">
+                            <input type="number" class="form-control" id="hausnummer" placeholder="Hausnummer">
                         </div>
+                        
+                        <div class="col-md-12">
+                            <label for="stadt" class="form-label">Telefonnummer</label>
+                            <input type="number" class="form-control" id="Telefonnummer">
+                        </div>
+
                         <div class="col-md-6">
                             <label for="stadt" class="form-label">Stadt</label>
                             <input type="text" class="form-control" id="stadt">
                         </div>
+
                         <div class="col-md-4">
                             <label for="bundesland" class="form-label">Bundesland</label>
                             <select id="bundesland" class="form-select">
@@ -88,7 +112,8 @@
 
                 <div class="p-2">
                     <h6>II. Aufwendungen, für die eine Prämie beantragt wird</h6>
-                    <p><small>Il. Aufwendungen, für die eine Prämie beantragt wird Für vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt. Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen kann eine Prämie nur gewährt werden, wenn die an dieselbe Bausparkasse geleisteten Beiträge (ohne vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht) mindestens 50 Euro betragen haben. Werden Beiträge zugunsten eines zertifizierten Altersvorsorgevertrages den Altersvorsorgebeiträgen zugeordnet, handelt es sich bei allen Beiträgen zu diesem Vertrag bis zu den in § 10a Abs. 1 des Einkommensteuergesetzes genannten Höchstbeträgen um keine prämienbegünstigten Aufwendungen.</small></p>
+                    <p><small>Für die eine Prämie beantragt wird Für vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt.</small>
+                    <p><small>Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen kann eine Prämie nur gewährt werden, wenn die an dieselbe Bausparkasse geleisteten Beiträge (ohne vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht) mindestens 50 Euro betragen haben. Werden Beiträge zugunsten eines zertifizierten Altersvorsorgevertrages den Altersvorsorgebeiträgen zugeordnet, handelt es sich bei allen Beiträgen zu diesem Vertrag bis zu den in § 10a Abs. 1 des Einkommensteuergesetzes genannten Höchstbeträgen um keine prämienbegünstigten Aufwendungen.</small></p>
                 </div>
             </div>
         </div>
