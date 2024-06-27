@@ -1,121 +1,125 @@
-<div class="p-3">
-    <h1>Antrag auf Wohnungsbauprämie 2024</h1>
-    <h4>für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h4>
-    <h3>Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember 2026</h3>
-</div>
+@if (isLoggedIn) {
 
-<div class="p-5">
-    <div class="container">
-        <div class="row">
-            <div class="col">
-                <div class="p-2">
-                    <div class="row">
-                        <div class="col">
-                            <label for="identifikationsnummer" class="form-label"><strong>Identifikationsnummer Prämienberechtigte(r) *</strong></label>
-                            <input type="text" class="form-control" id="identifikationsnummer" placeholder="Identifikationsnummer Prämienberechtigte(r)" aria-label="Identifikationsnummer Prämienberechtigte(r)">
-                        </div>
-                        <div class="col">
-                            <label for="identifikationsnummerEhegatte" class="form-label"><strong>Identifikationsnummer Ehegatte/Lebenspartner *</strong></label>
-                            <input type="text" class="form-control" id="identifikationsnummerEhegatte" placeholder="Identifikationsnummer Ehegatte/Lebenspartner" aria-label="Identifikationsnummer Ehegatte/Lebenspartner">
-                        </div>
-                    </div>
-                </div>
+    <div class="p-5">
+        <div class="container">
+            <div class="row">
+                <div class="col">
+                    <!-- Title Section -->
+                    <section class="p-2 space-below">
+                        <h1>Antrag auf Wohnungsbauprämie 2024</h1>
+                        <h2>für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2> <!-- Changed from h4 to h2 for semantic hierarchy -->
+                        <p>Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember 2026</p> <!-- Changed from h3 to p for semantic correctness -->
+                    </section>
+                    
+                    <!-- Identification Number Section -->
+                    <section class="p-2">
+                        <div class="row">
+                            <div class="col">
+                                <label for="identifikationsnummer" class="form-label"><strong>Identifikationsnummer Prämienberechtigte(r) *</strong></label>
+                                <input type="text" class="form-control" id="identifikationsnummer" placeholder="Identifikationsnummer Prämienberechtigte(r)" aria-label="Identifikationsnummer Prämienberechtigte(r)"  data-toggle="tooltip" data-placement="top" title="Prämienberechtigt für 2022 sind alle unbeschränkt einkommensteuerpflichtigen Personen, die vor dem 2. 1.2007 geboren oder Vollwaisen sind. Unbeschränkt einkommensteuerpflichtig sind natürliche Personen, die in der Bundesrepublik Deutschland ansässig sind (Wohnsitz oder gewöhnlicher Aufenthalt), oder die im Ausland ansässig sind und zu einer inländischen juristischen Person des öffentlichen Rechts in einem Dienstverhältnis stehen und dafür Arbeitslohn aus einer inländischen öffentlichen Kasse beziehen. Prämienberechtigt sind auch Personen ohne Wohnsitz oder gewöhnlichen Aufenthalt im Inland, wenn sie auf Antrag nach § 1 Absatz 3 des Einkommensteuergesetzes (EStG) als unbeschränkt einkommensteuerpflichtig behandelt werden.
 
-                <div class="p-2">
-                    <h6>I. Angaben zur Person</h6>
-                </div>
+    Alleinstehende sind alle Personen, die 2022 nicht verheiratet / verpartnert waren, und Ehegatten / Lebenspartner nach dem LPartG, die keine Höchstbetragsgemeinschaft bilden.
 
-                <div class="p-2">
-                    <div class="row">
-                        <label for="ehegatteLebenspartner" class="form-label"><strong>Prämienberechtigte(r) *</strong></label>
-                        <div class="col">
-                        <input type="text" class="form-control" placeholder="Familienname" aria-label="Familienname">
+    Ehegatten / Lebenspartnern nach dem LPartG steht ein gemeinsamer Höchstbetrag zu (Höchstbetragsgemeinschaft), wenn sie beide mindestens während eines Teils des Kalenderjahres 2022 miteinander verheiratet / verpartnert waren, nicht dauernd getrennt gelebt haben, unbeschränkt einkommensteuerpflichtig i. S. d. § 1 Absatz 1 oder 2 oder des § 1a EStG waren und sie nicht die Einzelveranlagung zur Einkommensteuer wählen. Sie gelten in den Fällen des § 1 Absatz 1 oder 2 EStG als zusammenveranlagte Ehegatten / Lebenspartner nach dem LPartG, auch wenn keine Veranlagung durchgeführt worden ist. Ehegatten / Lebenpartner nach dem LPartG, die keine Höchstbetragsgemeinschaft bilden, gelten als Alleinstehende." >
+                            </div>
+                            <div class="col">
+                                <label for="identifikationsnummerEhegatte" class="form-label"><strong>Identifikationsnummer Ehegatte/Lebenspartner *</strong></label>
+                                <input type="text" class="form-control" id="identifikationsnummerEhegatte" placeholder="Identifikationsnummer Ehegatte/Lebenspartner" aria-label="Identifikationsnummer Ehegatte/Lebenspartner">
+                            </div>
                         </div>
-                        <div class="col">
-                        <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Geburtsdatum" aria-label="Geburtsdatum">
-                        </div>
-                    </div>
-                </div>
+                    </section>
 
-                <div class="p-2">
-                    <div class="row">
-                        <label for="ehegatteLebenspartner" class="form-label"><strong>Ehegatte/Lebenspartner *</strong></label>
-                        <div class="col">
-                        <input type="text" class="form-control" placeholder="Familienname" aria-label="Familienname">
+                    <!-- Personal Information Section -->
+                    <section class="p-2">
+                        <h2>I. Angaben zur Person</h2>
+                        <div class="row">
+                            <label for="ehegatteLebenspartner" class="form-label"><strong>Prämienberechtigte(r) *</strong></label>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Familienname" aria-label="Familienname">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Geburtsdatum" aria-label="Geburtsdatum">
+                            </div>
                         </div>
-                        <div class="col">
-                        <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
-                        </div>
-                        <div class="col">
-                            <input type="text" class="form-control" placeholder="Geburtsdatum" aria-label="Geburtsdatum">
-                        </div>
-                    </div>
-                </div>
+                    </section>
 
-                <div class="p-2">
-                    <p><strong>Wohnsitz</strong> des/der Prämienberechtigten bei Antragstellung*</p>
-                    <form class="row g-3">
-                        <div class="col-12">
-                            <label for="strasse" class="form-label">Straße</label>
-                            <input type="text" class="form-control" id="strasse" placeholder="Straße">
+                    <!-- Partner Information Section -->
+                    <section class="p-2">
+                        <div class="row">
+                            <label for="ehegatteLebenspartner" class="form-label"><strong>Ehegatte/Lebenspartner *</strong></label>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Familienname" aria-label="Familienname">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
+                            </div>
+                            <div class="col">
+                                <input type="text" class="form-control" placeholder="Geburtsdatum" aria-label="Geburtsdatum">
+                            </div>
                         </div>
-                        <div class="col-12">
-                            <label for="hausnummer" class="form-label">Hausnummer</label>
-                            <input type="number" class="form-control" id="hausnummer" placeholder="Hausnummer">
-                        </div>
-                        
-                        <div class="col-md-12">
-                            <label for="stadt" class="form-label">Telefonnummer</label>
-                            <input type="number" class="form-control" id="Telefonnummer">
-                        </div>
+                    </section>
 
-                        <div class="col-md-6">
-                            <label for="stadt" class="form-label">Stadt</label>
-                            <input type="text" class="form-control" id="stadt">
-                        </div>
+                    <!-- Address Section -->
+                    <section class="p-2">
+                        <p><strong>Wohnsitz</strong> des/der Prämienberechtigten bei Antragstellung*</p>
+                        <form class="row g-3">
+                            <div class="col-12">
+                                <label for="strasse" class="form-label">Straße</label>
+                                <input type="text" class="form-control" id="strasse" placeholder="Straße">
+                            </div>
+                            <div class="col-12">
+                                <label for="hausnummer" class="form-label">Hausnummer</label>
+                                <input type="number" class="form-control" id="hausnummer" placeholder="Hausnummer">
+                            </div>
+                            <div class="col-md-6">
+                                <label for="stadt" class="form-label">Stadt</label>
+                                <input type="text" class="form-control" id="stadt" placeholder="Stadt"> <!-- Added placeholder for consistency -->
+                            </div>
+                            <div class="col-md-4">
+                                <label for="bundesland" class="form-label">Bundesland</label>
+                                <select id="bundesland" class="form-select">
+                                    <option selected>Wählen Sie...</option>
+                                    <option>Hessen</option>
+                                    <option>Berlin</option>
+                                    <option>Bayern</option>
+                                    <option>Baden Württemberg</option>
+                                </select>
+                            </div>
+                            <div class="col-md-2">
+                                <label for="postleitzahl" class="form-label">Postleitzahl</label>
+                                <input type="text" class="form-control" id="postleitzahl" placeholder="Postleitzahl"> <!-- Added placeholder for consistency -->
+                            </div>
+                        </form>
+                    </section>
 
-                        <div class="col-md-4">
-                            <label for="bundesland" class="form-label">Bundesland</label>
-                            <select id="bundesland" class="form-select">
-                                <option selected>Wählen Sie...</option>
-                                <option>Hessen</option>
-                                <option>Berlin</option>
-                                <option>Bayern</option>
-                                <option>Baden Württemberg</option>
-                            </select>
+                    <!-- Claim Section -->
+                    <section class="p-2">
+                        <label for="anspruchSparjahr" class="form-label">Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie als</label>
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="wohnungsbaupraemie" id="alleinstehend">
+                            <label class="form-check-label" for="alleinstehend">
+                            Alleinstehende(r)
+                            </label>
                         </div>
-                        <div class="col-md-2">
-                            <label for="postleitzahl" class="form-label">Postleitzahl</label>
-                            <input type="text" class="form-control" id="postleitzahl">
+                        <div class="form-check">
+                            <input class="form-check-input" type="radio" name="wohnungsbaupraemie" id="ehegatteLebenspartnerRadio" checked>
+                            <label class="form-check-label" for="ehegatteLebenspartnerRadio">
+                            Ehegatte/Lebenspartner
+                            </label>
                         </div>
-                    </form>
-                </div>
+                    </section>
 
-                <div class="p-2">
-                    <label for="anspruchSparjahr" class="form-label">Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie als</label>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="wohnungsbaupraemie" id="alleinstehend">
-                        <label class="form-check-label" for="alleinstehend">
-                        Alleinstehende(r)
-                        </label>
-                    </div>
-                    <div class="form-check">
-                        <input class="form-check-input" type="radio" name="wohnungsbaupraemie" id="ehegatteLebenspartnerRadio" checked>
-                        <label class="form-check-label" for="ehegatteLebenspartnerRadio">
-                        Ehegatte/Lebenspartner
-                        </label>
-                    </div>
-                </div>
-
-                <div class="p-2">
-                    <h6>II. Aufwendungen, für die eine Prämie beantragt wird</h6>
-                    <p><small>Für die eine Prämie beantragt wird Für vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt.</small>
-                    <p><small>Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen kann eine Prämie nur gewährt werden, wenn die an dieselbe Bausparkasse geleisteten Beiträge (ohne vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht) mindestens 50 Euro betragen haben. Werden Beiträge zugunsten eines zertifizierten Altersvorsorgevertrages den Altersvorsorgebeiträgen zugeordnet, handelt es sich bei allen Beiträgen zu diesem Vertrag bis zu den in § 10a Abs. 1 des Einkommensteuergesetzes genannten Höchstbeträgen um keine prämienbegünstigten Aufwendungen.</small></p>
+                    <!-- Expenditures Section -->
+                    <section class="p-2">
+                        <h2>II. Aufwendungen, für die eine Prämie beantragt wird</h2>
+                        <p data-toggle="tooltip" data-placement="top" title="Bausparbeiträge, die vermögenswirksame Leistungen sind, werden vorrangig durch Gewährung einer Arbeitnehmer-Sparzulage gefördert. Eine Einbeziehung vermögenswirksamer Leistungen in die prämienbegünstigten Aufwendungen kommt deshalb nur in Betracht, wenn Sie keinen Anspruch auf Arbeitnehmer-Sparzulage haben. Ein Anspruch auf Arbeitnehmer-Sparzulage besteht, wenn das maßgebende zu versteuernde Einkommen unter Berücksichtigung der Freibeträge für Kinder nicht mehr als 17.900 Euro bei Alleinstehenden bzw. 35.800 Euro bei zusammenveranlagten Ehegatten / Lebenspartnern nach dem LPartG beträgt. Sind diese Einkommensgrenzen überschritten, können Sie im Rahmen der prämienbegünstigten Höchstbeträge (700 / 1.400 Euro) für diese vermögenswirksamen Leistungen Wohnungsbauprämie beanspruchen."><small>Für vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt. </small> <strong>③</strong></p> 
+                        <p><small>Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen kann eine Prämie nur gewährt werden, wenn die an dieselbe Bausparkasse geleisteten Beiträge (ohne vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht) mindestens 50 Euro betragen haben. Werden Beiträge zugunsten eines zertifizierten Altersvorsorgevertrages den Altersvorsorgebeiträgen zugeordnet, handelt es sich bei allen Beiträgen zu diesem Vertrag bis zu den in § 10a Abs. 1 des Einkommensteuergesetzes genannten Höchstbeträgen um keine prämienbegünstigten Aufwendungen.</small></p>
+                    </section>
                 </div>
             </div>
         </div>
     </div>
-</div>
+}
