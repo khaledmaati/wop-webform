@@ -1,15 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-import { LoginComponent } from './login/login.component';
-import { FormComponent } from './form/form.component';
 
 @Component({
   selector: 'app-root',
-  standalone: true,
-  imports: [RouterOutlet, LoginComponent, FormComponent],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css'] 
 })
+
 export class AppComponent {
   title = 'wop-webform';
+
 }

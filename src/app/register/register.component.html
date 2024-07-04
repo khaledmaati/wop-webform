@@ -2,57 +2,54 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="p-5">
-        <form (ngSubmit)="login()" id="login-form">
+        <form (ngSubmit)="register()" id="registration-form">
           <!-- Pills navs -->
           <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
               <a
-                class="nav-link active"
+                class="nav-link"
                 id="tab-login"
                 data-mdb-toggle="pill"
                 routerLink="/login"
                 role="tab"
                 aria-controls="pills-login"
-                aria-selected="true"
+                aria-selected="false"
                 >Anmelden</a
               >
             </li>
             <li class="nav-item" role="presentation">
               <a
-                class="nav-link"
+                class="nav-link active"
                 id="tab-register"
                 data-mdb-toggle="pill"
                 routerLink="/register"
                 role="tab"
                 aria-controls="pills-register"
-                aria-selected="false"
+                aria-selected="true"
                 >Registrieren</a
               >
             </li>
           </ul>
           <!-- Email input -->
           <div class="mb-3">
-            <label for="exampleInputEmail1" class="form-label">E-Mail</label>
+            <label for="registerEmail" class="form-label">E-Mail</label>
             <input
               type="email"
               class="form-control"
-              id="exampleInputEmail1"
+              id="registerEmail"
               placeholder="name@beispiel.com"
               [(ngModel)]="email"
               name="email"
-              aria-describedby="emailHelp"
               required
             />
           </div>
           <!-- Password input -->
           <div class="mb-3">
-            <label for="exampleInputPassword1" class="form-label"
-              >Passwort</label
-            >
+            <label for="registerPassword" class="form-label">Passwort</label>
             <input
               type="password"
               class="form-control"
-              id="exampleInputPassword1"
+              id="registerPassword"
               [(ngModel)]="password"
               name="password"
               placeholder="Passwort"
@@ -60,13 +57,9 @@
             />
           </div>
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary">Anmelden</button>
+          <button type="submit" class="btn btn-primary">Registrieren</button>
         </form>
       </div>
     </div>
-  </div>
-  <!-- Register buttons -->
-  <div class="text-center">
-    <p>Noch kein Mitglied? <a routerLink="/register">Registrieren</a></p>
   </div>
 </div>

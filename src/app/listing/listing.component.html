@@ -1,0 +1,23 @@
+<div align="center">
+<table #dataTable id="example" class="table table-striped" style="width:70%">        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Position</th>
+                <th>Office</th>
+                <th>Age</th>
+                <th>Start date</th>
+                <th>Salary</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let person of people">
+                <td>{{ person.name }}</td>
+                <td>{{ person.position }}</td>
+                <td>{{ person.office }}</td>
+                <td>{{ person.age }}</td>
+                <td>{{ person.startDate }}</td>
+                <td>{{ person.salary }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
