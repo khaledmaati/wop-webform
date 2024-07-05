@@ -1,124 +1,241 @@
-@if (isLoggedIn) {
-
-    <div class="p-5">
-        <div class="container">
-            <div class="row">
-                <div class="col">
-                    <!-- Title Section -->
-                    <section class="p-2 space-below">
-                        <h1>Antrag auf Wohnungsbauprämie 2024</h1>
-                        <h2>für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2> <!-- Changed from h4 to h2 for semantic hierarchy -->
-                        <p>Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember 2026</p> <!-- Changed from h3 to p for semantic correctness -->
-                    </section>
-                    
-                    <!-- Identification Number Section -->
-                    <section class="p-2">
-                        <div class="row">
-                            <div class="col">
-                                <label for="identifikationsnummer" class="form-label"><strong>Identifikationsnummer Prämienberechtigte(r) *</strong></label>
-                                <input type="text" class="form-control" id="identifikationsnummer" placeholder="Identifikationsnummer Prämienberechtigte(r)" aria-label="Identifikationsnummer Prämienberechtigte(r)"  data-toggle="tooltip" data-placement="top" title= {{note2}} >
-                            </div>
-                            <div class="col">
-                                <label for="identifikationsnummerEhegatte" class="form-label"><strong>Identifikationsnummer Ehegatte/Lebenspartner *</strong></label>
-                                <input type="text" class="form-control" id="identifikationsnummerEhegatte" placeholder="Identifikationsnummer Ehegatte/Lebenspartner" aria-label="Identifikationsnummer Ehegatte/Lebenspartner">
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Personal Information Section -->
-                    <section class="p-2">
-                        <h2>I. Angaben zur Person</h2>
-                        <div class="row">
-                            <label for="ehegatteLebenspartner" class="form-label"><strong>Prämienberechtigte(r) *</strong></label>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Familienname" aria-label="Familienname">
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Geburtsdatum" aria-label="Geburtsdatum">
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Partner Information Section -->
-                    <section class="p-2">
-                        <div class="row">
-                            <label for="ehegatteLebenspartner" class="form-label"><strong>Ehegatte/Lebenspartner *</strong></label>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Familienname" aria-label="Familienname">
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Vorname" aria-label="Vorname">
-                            </div>
-                            <div class="col">
-                                <input type="text" class="form-control" placeholder="Geburtsdatum" aria-label="Geburtsdatum">
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Address Section -->
-                    <section class="p-2">
-                        <p><strong>Wohnsitz</strong> des/der Prämienberechtigten bei Antragstellung*</p>
-                        <form class="row g-3">
-                            <div class="col-12">
-                                <label for="strasse" class="form-label">Straße</label>
-                                <input type="text" class="form-control" id="strasse" placeholder="Straße">
-                            </div>
-                            <div class="col-12">
-                                <label for="hausnummer" class="form-label">Hausnummer</label>
-                                <input type="number" class="form-control" id="hausnummer" placeholder="Hausnummer">
-                            </div>
-                            <div class="col-md-6">
-                                <label for="stadt" class="form-label">Stadt</label>
-                                <input type="text" class="form-control" id="stadt" placeholder="Stadt"> <!-- Added placeholder for consistency -->
-                            </div>
-                            <div class="col-md-4">
-                                <label for="bundesland" class="form-label">Bundesland</label>
-                                <select id="bundesland" class="form-select">
-                                    <option selected>Wählen Sie...</option>
-                                    <option>Hessen</option>
-                                    <option>Berlin</option>
-                                    <option>Bayern</option>
-                                    <option>Baden Württemberg</option>
-                                </select>
-                            </div>
-                            <div class="col-md-2">
-                                <label for="postleitzahl" class="form-label">Postleitzahl</label>
-                                <input type="text" class="form-control" id="postleitzahl" placeholder="Postleitzahl"> <!-- Added placeholder for consistency -->
-                            </div>
-                        </form>
-                    </section>
-
-                    <!-- Claim Section -->
-                    <section class="p-2">
-                        <label for="anspruchSparjahr" class="form-label">Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie als</label>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="wohnungsbaupraemie" id="alleinstehend">
-                            <label class="form-check-label" for="alleinstehend">
-                            Alleinstehende(r)
-                            </label>
-                        </div>
-                        <div class="form-check">
-                            <input class="form-check-input" type="radio" name="wohnungsbaupraemie" id="ehegatteLebenspartnerRadio" checked>
-                            <label class="form-check-label" for="ehegatteLebenspartnerRadio">
-                            Ehegatte/Lebenspartner
-                            </label>
-                        </div>
-                    </section>
-
-                    <!-- Expenditures Section -->
-                    <section class="p-2">
-                        <h2>II. Aufwendungen, für die eine Prämie beantragt wird</h2>
-                        <p data-toggle="tooltip" data-placement="top" title= {{note3}}><small>Für vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt. </small> <strong>③</strong></p> 
-                        <p><small>Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen kann eine Prämie nur gewährt werden, wenn die an dieselbe Bausparkasse geleisteten Beiträge (ohne vermögenswirksame Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage besteht) mindestens 50 Euro betragen haben. Werden Beiträge zugunsten eines zertifizierten Altersvorsorgevertrages den Altersvorsorgebeiträgen zugeordnet, handelt es sich bei allen Beiträgen zu diesem Vertrag bis zu den in § 10a Abs. 1 des Einkommensteuergesetzes genannten Höchstbeträgen um keine prämienbegünstigten Aufwendungen.</small></p>
-                    </section>
-
-                    <button type="submit" class="btn btn-primary">Submit</button>
-
-                </div>
-            </div>
-        </div>
+<div class="p-5">
+    <div class="text-end">
+      <button class="btn btn-primary" (click)="logout()">Logout</button>
     </div>
-}
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <!-- Title Section -->
+          <section class="p-2 mb-4">
+            <h1>Antrag auf Wohnungsbauprämie 2024</h1>
+            <h2>für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2>
+            <p>
+              Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember
+              2026
+            </p>
+          </section>
+  
+          <!-- Identification Number Section -->
+          <section class="p-2 mb-4">
+            <div class="row">
+              <div class="col">
+                <label for="identifikationsnummer" class="form-label">
+                  <strong>Identifikationsnummer Prämienberechtigte(r) *</strong>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="identifikationsnummer"
+                  placeholder="Identifikationsnummer Prämienberechtigte(r)"
+                  aria-label="Identifikationsnummer Prämienberechtigte(r)"
+                  title="{{ note2 }}"
+                />
+              </div>
+              <div class="col">
+                <label for="identifikationsnummerEhegatte" class="form-label">
+                  <strong>Identifikationsnummer Ehegatte/Lebenspartner *</strong>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="identifikationsnummerEhegatte"
+                  placeholder="Identifikationsnummer Ehegatte/Lebenspartner"
+                  aria-label="Identifikationsnummer Ehegatte/Lebenspartner"
+                />
+              </div>
+            </div>
+          </section>
+  
+          <!-- Personal Information Section -->
+          <section class="p-2 mb-4">
+            <h2>I. Angaben zur Person</h2>
+            <div class="row">
+              <div class="col">
+                <label for="familienname" class="form-label">
+                  <strong>Familienname *</strong>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="familienname"
+                  placeholder="Familienname"
+                  aria-label="Familienname"
+                />
+              </div>
+              <div class="col">
+                <label for="vorname" class="form-label">
+                  <strong>Vorname *</strong>
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="vorname"
+                  placeholder="Vorname"
+                  aria-label="Vorname"
+                />
+              </div>
+              <div class="col">
+                <label for="geburtsdatum" class="form-label">
+                  <strong>Geburtsdatum *</strong>
+                </label>
+                <input
+                  type="date"
+                  class="form-control"
+                  id="geburtsdatum"
+                  placeholder="Geburtsdatum"
+                  aria-label="Geburtsdatum"
+                />
+              </div>
+            </div>
+          </section>
+  
+          <!-- Partner Information Section -->
+          <section class="p-2 mb-4">
+            <h2>Ehegatte/Lebenspartner</h2>
+            <div class="row">
+              <div class="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="partnerFamilienname"
+                  placeholder="Familienname"
+                  aria-label="Familienname des Partners"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="partnerVorname"
+                  placeholder="Vorname"
+                  aria-label="Vorname des Partners"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="date"
+                  class="form-control"
+                  id="partnerGeburtsdatum"
+                  placeholder="Geburtsdatum"
+                  aria-label="Geburtsdatum des Partners"
+                />
+              </div>
+            </div>
+          </section>
+  
+          <!-- Address Section -->
+          <section class="p-2 mb-4">
+            <h2>Wohnsitz des/der Prämienberechtigten bei Antragstellung *</h2>
+            <form class="row g-3">
+              <div class="col-12">
+                <label for="strasse" class="form-label">Straße</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="strasse"
+                  placeholder="Straße"
+                />
+              </div>
+              <div class="col-12">
+                <label for="hausnummer" class="form-label">Hausnummer</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="hausnummer"
+                  placeholder="Hausnummer"
+                />
+              </div>
+              <div class="col-md-6">
+                <label for="stadt" class="form-label">Stadt</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="stadt"
+                  placeholder="Stadt"
+                />
+              </div>
+              <div class="col-md-4">
+                <label for="bundesland" class="form-label">Bundesland</label>
+                <select id="bundesland" class="form-select">
+                  <option selected>Wählen Sie...</option>
+                  <option>Hessen</option>
+                  <option>Berlin</option>
+                  <option>Bayern</option>
+                  <option>Baden Württemberg</option>
+                </select>
+              </div>
+              <div class="col-md-2">
+                <label for="postleitzahl" class="form-label">Postleitzahl</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="postleitzahl"
+                  placeholder="Postleitzahl"
+                />
+              </div>
+            </form>
+          </section>
+  
+          <!-- Claim Section -->
+          <section class="p-2 mb-4">
+            <label for="anspruchSparjahr" class="form-label">
+              Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie als
+            </label>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="wohnungsbaupraemie"
+                id="alleinstehend"
+              />
+              <label class="form-check-label" for="alleinstehend">
+                Alleinstehende(r)
+              </label>
+            </div>
+            <div class="form-check">
+              <input
+                class="form-check-input"
+                type="radio"
+                name="wohnungsbaupraemie"
+                id="ehegatteLebenspartnerRadio"
+                checked
+              />
+              <label class="form-check-label" for="ehegatteLebenspartnerRadio">
+                Ehegatte/Lebenspartner
+              </label>
+            </div>
+          </section>
+  
+          <!-- Expenditures Section -->
+          <section class="p-2 mb-4">
+            <h2>II. Aufwendungen, für die eine Prämie beantragt wird</h2>
+            <p title="{{ note3 }}">
+              <small>
+                Für vermögenswirksame Leistungen, für die Anspruch auf
+                Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt.
+              </small>
+              <strong>③</strong>
+            </p>
+            <p>
+              <small>
+                Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen kann
+                eine Prämie nur gewährt werden, wenn die an dieselbe Bausparkasse
+                geleisteten Beiträge (ohne vermögenswirksame Leistungen, für die
+                Anspruch auf Arbeitnehmer-Sparzulage besteht) mindestens 50 Euro
+                betragen haben. Werden Beiträge zugunsten eines zertifizierten
+                Altersvorsorgevertrages den Altersvorsorgebeiträgen zugeordnet,
+                handelt es sich bei allen Beiträgen zu diesem Vertrag bis zu den
+                in § 10a Abs. 1 des Einkommensteuergesetzes genannten
+                Höchstbeträgen um keine prämienbegünstigten Aufwendungen.
+              </small>
+            </p>
+          </section>
+  
+          <div class="text-center">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

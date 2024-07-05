@@ -15,6 +15,8 @@ import { ListingComponent } from './listing/listing.component';
 import { LoginComponent } from './login/login.component';
 import { LandingComponent } from './landing/landing.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './auth.guard';
+import { RouterModule } from '@angular/router';
 
 
 @NgModule({
@@ -30,12 +32,13 @@ import { RegisterComponent } from './register/register.component';
   imports: [
     BrowserModule,
     AppRoutingModule,
+    RouterModule,
     FormsModule,
     // ** Google Firebase Modules **
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule
   ],
-  providers: [],
+  providers: [AuthGuard],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

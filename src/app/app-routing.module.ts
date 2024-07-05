@@ -4,6 +4,7 @@ import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { FormComponent } from './form/form.component';
 import { RegisterComponent } from './register/register.component';
+import { AuthGuard } from './auth.guard';
 
 const routes: Routes = [
   {
@@ -15,10 +16,9 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
   },
-  {
-    path: 'form',
-    component: FormComponent,
-  },
+  { 
+    path: 'form', component: FormComponent, canActivate: [AuthGuard],
+  }, // Protect form page with AuthGuard
   {
     path: 'register',
     component: RegisterComponent,
