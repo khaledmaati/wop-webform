@@ -8,7 +8,10 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { environment } from '../environments/environment';
+import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
+
 
 import { FormComponent } from './form/form.component';
 import { ListingComponent } from './listing/listing.component';
@@ -36,7 +39,9 @@ import { RouterModule } from '@angular/router';
     FormsModule,
     // ** Google Firebase Modules **
     AngularFireModule.initializeApp(environment.firebase),
-    AngularFireAuthModule
+    AngularFireAuthModule,
+    AngularFireDatabaseModule,
+    ReactiveFormsModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

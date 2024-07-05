@@ -1,20 +1,22 @@
 <div class="p-5">
-    <div class="text-end">
-      <button class="btn btn-primary" (click)="logout()">Logout</button>
-    </div>
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <!-- Title Section -->
-          <section class="p-2 mb-4">
-            <h1>Antrag auf Wohnungsbauprämie 2023</h1>
-            <h2>für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2>
-            <p>
-              Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember
-              2026
-            </p>
-          </section>
-  
+  <div class="text-end">
+    <button class="btn btn-primary" (click)="logout()">Logout</button>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <!-- Title Section -->
+        <section class="p-2 mb-4">
+          <h1>Antrag auf Wohnungsbauprämie 2023</h1>
+          <h2>für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2>
+          <p>
+            Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember
+            2026
+          </p>
+        </section>
+
+        <!-- Form Section -->
+        <form [formGroup]="form" (ngSubmit)="onSubmit()">
           <!-- Identification Number Section -->
           <section class="p-2 mb-4">
             <div class="row">
@@ -25,27 +27,24 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="identifikationsnummer"
-                  placeholder="Identifikationsnummer Prämienberechtigte(r)"
-                  aria-label="Identifikationsnummer Prämienberechtigte(r)"
-                  title="{{ note2 }}"
+                  formControlName="identifikationsnummer"
                 />
               </div>
               <div class="col">
                 <label for="identifikationsnummerEhegatte" class="form-label">
-                  <strong>Identifikationsnummer Ehegatte/Lebenspartner *</strong>
+                  <strong
+                    >Identifikationsnummer Ehegatte/Lebenspartner *</strong
+                  >
                 </label>
                 <input
                   type="text"
                   class="form-control"
-                  id="identifikationsnummerEhegatte"
-                  placeholder="Identifikationsnummer Ehegatte/Lebenspartner"
-                  aria-label="Identifikationsnummer Ehegatte/Lebenspartner"
+                  formControlName="identifikationsnummerEhegatte"
                 />
               </div>
             </div>
           </section>
-  
+
           <!-- Personal Information Section -->
           <section class="p-2 mb-4">
             <h2>I. Angaben zur Person</h2>
@@ -57,9 +56,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="familienname"
-                  placeholder="Familienname"
-                  aria-label="Familienname"
+                  formControlName="familienname"
                 />
               </div>
               <div class="col">
@@ -69,9 +66,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="vorname"
-                  placeholder="Vorname"
-                  aria-label="Vorname"
+                  formControlName="vorname"
                 />
               </div>
               <div class="col">
@@ -81,14 +76,12 @@
                 <input
                   type="date"
                   class="form-control"
-                  id="geburtsdatum"
-                  placeholder="Geburtsdatum"
-                  aria-label="Geburtsdatum"
+                  formControlName="geburtsdatum"
                 />
               </div>
             </div>
           </section>
-  
+
           <!-- Partner Information Section -->
           <section class="p-2 mb-4">
             <h2>Ehegatte/Lebenspartner</h2>
@@ -97,43 +90,39 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="partnerFamilienname"
+                  formControlName="partnerFamilienname"
                   placeholder="Familienname"
-                  aria-label="Familienname des Partners"
                 />
               </div>
               <div class="col">
                 <input
                   type="text"
                   class="form-control"
-                  id="partnerVorname"
+                  formControlName="partnerVorname"
                   placeholder="Vorname"
-                  aria-label="Vorname des Partners"
                 />
               </div>
               <div class="col">
                 <input
                   type="date"
                   class="form-control"
-                  id="partnerGeburtsdatum"
+                  formControlName="partnerGeburtsdatum"
                   placeholder="Geburtsdatum"
-                  aria-label="Geburtsdatum des Partners"
                 />
               </div>
             </div>
           </section>
-  
+
           <!-- Address Section -->
           <section class="p-2 mb-4">
             <h2>Wohnsitz des/der Prämienberechtigten bei Antragstellung *</h2>
-            <form class="row g-3">
+            <div class="row g-3">
               <div class="col-12">
                 <label for="strasse" class="form-label">Straße</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="strasse"
-                  placeholder="Straße"
+                  formControlName="strasse"
                 />
               </div>
               <div class="col-12">
@@ -141,8 +130,7 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="hausnummer"
-                  placeholder="Hausnummer"
+                  formControlName="hausnummer"
                 />
               </div>
               <div class="col-md-6">
@@ -150,13 +138,12 @@
                 <input
                   type="text"
                   class="form-control"
-                  id="stadt"
-                  placeholder="Stadt"
+                  formControlName="stadt"
                 />
               </div>
               <div class="col-md-4">
                 <label for="bundesland" class="form-label">Bundesland</label>
-                <select id="bundesland" class="form-select">
+                <select class="form-select" formControlName="bundesland">
                   <option selected>Wählen Sie...</option>
                   <option>Hessen</option>
                   <option>Berlin</option>
@@ -165,17 +152,18 @@
                 </select>
               </div>
               <div class="col-md-2">
-                <label for="postleitzahl" class="form-label">Postleitzahl</label>
+                <label for="postleitzahl" class="form-label"
+                  >Postleitzahl</label
+                >
                 <input
                   type="text"
                   class="form-control"
-                  id="postleitzahl"
-                  placeholder="Postleitzahl"
+                  formControlName="postleitzahl"
                 />
               </div>
-            </form>
+            </div>
           </section>
-  
+
           <!-- Claim Section -->
           <section class="p-2 mb-4">
             <label for="anspruchSparjahr" class="form-label">
@@ -185,31 +173,30 @@
               <input
                 class="form-check-input"
                 type="radio"
-                name="wohnungsbaupraemie"
-                id="alleinstehend"
+                formControlName="wohnungsbaupraemie"
+                value="alleinstehend"
               />
-              <label class="form-check-label" for="alleinstehend">
-                Alleinstehende(r)
-              </label>
+              <label class="form-check-label" for="alleinstehend"
+                >Alleinstehende(r)</label
+              >
             </div>
             <div class="form-check">
               <input
                 class="form-check-input"
                 type="radio"
-                name="wohnungsbaupraemie"
-                id="ehegatteLebenspartnerRadio"
-                checked
+                formControlName="wohnungsbaupraemie"
+                value="ehegatteLebenspartner"
               />
-              <label class="form-check-label" for="ehegatteLebenspartnerRadio">
-                Ehegatte/Lebenspartner
-              </label>
+              <label class="form-check-label" for="ehegatteLebenspartner"
+                >Ehegatte/Lebenspartner</label
+              >
             </div>
           </section>
-  
+
           <!-- Expenditures Section -->
           <section class="p-2 mb-4">
             <h2>II. Aufwendungen, für die eine Prämie beantragt wird</h2>
-            <p title="{{ note3 }}">
+            <p>
               <small>
                 Für vermögenswirksame Leistungen, für die Anspruch auf
                 Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt.
@@ -218,24 +205,29 @@
             </p>
             <p>
               <small>
-                Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen kann
-                eine Prämie nur gewährt werden, wenn die an dieselbe Bausparkasse
-                geleisteten Beiträge (ohne vermögenswirksame Leistungen, für die
-                Anspruch auf Arbeitnehmer-Sparzulage besteht) mindestens 50 Euro
-                betragen haben. Werden Beiträge zugunsten eines zertifizierten
-                Altersvorsorgevertrages den Altersvorsorgebeiträgen zugeordnet,
-                handelt es sich bei allen Beiträgen zu diesem Vertrag bis zu den
-                in § 10a Abs. 1 des Einkommensteuergesetzes genannten
-                Höchstbeträgen um keine prämienbegünstigten Aufwendungen.
+                Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen
+                kann eine Prämie nur gewährt werden, wenn die an dieselbe
+                Bausparkasse geleisteten Beiträge (ohne vermögenswirksame
+                Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage
+                besteht) mindestens 50 Euro betragen haben. Werden Beiträge
+                zugunsten eines zertifizierten Altersvorsorgevertrages den
+                Altersvorsorgebeiträgen zugeordnet, handelt es sich bei allen
+                Beiträgen zu diesem Vertrag bis zu den in § 10a Abs. 1 des
+                Einkommensteuergesetzes genannten Höchstbeträgen um keine
+                prämienbegünstigten Aufwendungen.
               </small>
             </p>
           </section>
-  
+
           <div class="text-center">
+            <!-- Submit Button -->
             <button type="submit" class="btn btn-primary">Submit</button>
+            <button class="btn btn-secondary ms-2" (click)="downloadXML()">
+              Download as XML
+            </button>
           </div>
-        </div>
+        </form>
       </div>
     </div>
   </div>
-  
+</div>
