@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from '../auth.service';
-import { FormBuilder, FormGroup } from '@angular/forms';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { saveAs } from 'file-saver-es';
+import { AuthService } from '../auth.service';
 
 @Component({
   selector: 'app-form',
