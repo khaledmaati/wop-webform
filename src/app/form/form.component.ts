@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { saveAs } from 'file-saver-es';
 import { AuthService } from '../auth.service';
 
@@ -17,17 +17,19 @@ export class FormComponent {
 
   form: FormGroup;
 
+  dynamicForms: any[] = []; // Step 1: Define the dynamicForms property
+
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
     private firestore: AngularFirestore
   ) {
     this.form = this.fb.group({
-      identifikationsnummer: [''],
-      identifikationsnummerEhegatte: [''],
-      familienname: [''],
-      vorname: [''],
-      geburtsdatum: [''],
+      identifikationsnummer: ['', Validators.required],
+      identifikationsnummerEhegatte: ['', Validators.required],
+      familienname: ['', Validators.required],
+      vorname: ['', Validators.required],
+      geburtsdatum: ['', Validators.required],
       partnerFamilienname: [''],
       partnerVorname: [''],
       partnerGeburtsdatum: [''],
@@ -36,17 +38,49 @@ export class FormComponent {
       stadt: [''],
       bundesland: [''],
       postleitzahl: [''],
-      wohnungsbaupraemie: [''],
+      wohnungsbaupraemie: ['', Validators.required],
+      dynamicForms: this.fb.array([]),
     });
+
+    // Initialize with one form
+    this.addForm();
   }
 
-  onSubmit() {
+  logout() {
+    this.authService.logout();
+  }
+
+  addForm(): void {
+    const dynamicForm = this.fb.group({
+      field1: [''],
+      field2: [''],
+      field3: [''],
+      field4: [''],
+      field5: [''],
+      field6: [''],
+    });
+
+    // Step 2: Implement addForm method
+    this.dynamicForms.push(dynamicForm);
+    (this.form.get('dynamicForms') as FormArray).push(dynamicForm);
+  }
+
+  removeForm(index: number): void {
+    // Step 3: Implement removeForm method
+    if (this.dynamicForms.length > 1) {
+      this.dynamicForms.splice(index, 1);
+      (this.form.get('dynamicForms') as FormArray).removeAt(index);
+    } else {
+      alert('At least one form is required.');
+    }
+  }
+
+  onSubmit(): void {
     this.firestore
       .collection('wohnungsbaupraemie')
       .add(this.form.value)
-      .then(() => {
-        console.log('Data saved to Firestore');
-      });
+      .then(() => console.log('Data saved to Firestore'))
+      .catch((error) => console.error('Error saving data to Firestore', error));
   }
 
   downloadXML() {
@@ -57,17 +91,52 @@ export class FormComponent {
   }
 
   jsonToXML(json: any): string {
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<Antrag>\n';
-    for (const key in json) {
-      if (json.hasOwnProperty(key)) {
-        xml += `  <${key}>${json[key]}</${key}>\n`;
-      }
-    }
-    xml += '</Antrag>';
-    return xml;
-  }
+  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<Antrag>\n';
+  xml += this.convertToJson(json); // Note: Consider renaming this method to reflect its purpose better, e.g., convertToXml
+  xml += '</Antrag>';
+  return xml;
+}
 
-  logout() {
-    this.authService.logout();
+convertToJson(obj: any, indent = '  '): string {
+  let xml = '';
+  for (const key in obj) {
+    if (!obj.hasOwnProperty(key)) continue;
+    if (typeof obj[key] === 'object' && obj[key] !== null) {
+      if (Array.isArray(obj[key])) {
+        obj[key].forEach((item: any) => {
+          xml += `${indent}<${key}>\n`;
+          xml += this.convertToJson(item, indent + '  ');
+          xml += `${indent}</${key}>\n`;
+        });
+      } else {
+        xml += `${indent}<${key}>\n`;
+        xml += this.convertToJson(obj[key], indent + '  ');
+        xml += `${indent}</${key}>\n`;
+      }
+    } else {
+      const value = this.escapeXml(String(obj[key]));
+      xml += `${indent}<${key}>${value}</${key}>\n`;
+    }
+  }
+  return xml;
+}
+
+  escapeXml(unsafe: string): string {
+    return unsafe.replace(/[<>&'"]/g, (c) => {
+      switch (c) {
+        case '<':
+          return '&lt;';
+        case '>':
+          return '&gt;';
+        case '&':
+          return '&amp;';
+        case "'":
+          return '&apos;';
+        case '"':
+          return '&quot;';
+        default:
+          return c;
+      }
+    });
   }
 }

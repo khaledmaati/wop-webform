@@ -2,62 +2,36 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="p-5">
-        <form (ngSubmit)="register()" id="registration-form">
+        <form (ngSubmit)="register()" id="registration-form" #registrationForm="ngForm">
           <!-- Pills navs -->
           <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
-              <a
-                class="nav-link"
-                id="tab-login"
-                data-mdb-toggle="pill"
-                routerLink="/login"
-                role="tab"
-                aria-controls="pills-login"
-                aria-selected="false"
-                >Anmelden</a
-              >
+              <a class="nav-link" id="tab-login" data-mdb-toggle="pill" routerLink="/login" role="tab" aria-controls="pills-login" aria-selected="false">Anmelden</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a
-                class="nav-link active"
-                id="tab-register"
-                data-mdb-toggle="pill"
-                routerLink="/register"
-                role="tab"
-                aria-controls="pills-register"
-                aria-selected="true"
-                >Registrieren</a
-              >
+              <a class="nav-link active" id="tab-register" data-mdb-toggle="pill" routerLink="/register" role="tab" aria-controls="pills-register" aria-selected="true">Registrieren</a>
             </li>
           </ul>
           <!-- Email input -->
           <div class="mb-3">
             <label for="registerEmail" class="form-label">E-Mail</label>
-            <input
-              type="email"
-              class="form-control"
-              id="registerEmail"
-              placeholder="name@beispiel.com"
-              [(ngModel)]="email"
-              name="email"
-              required
-            />
+            <input type="email" class="form-control" id="registerEmail" placeholder="name@beispiel.com" [(ngModel)]="email" name="email" required email #emailField="ngModel">
+            <div *ngIf="emailField.invalid && emailField.touched" class="text-danger">
+              <div *ngIf="emailField.errors?.['required']">E-Mail ist erforderlich.</div>
+              <div *ngIf="emailField.errors?.['email']">Bitte geben Sie eine gültige E-Mail-Adresse ein.</div>
+            </div>
           </div>
           <!-- Password input -->
           <div class="mb-3">
             <label for="registerPassword" class="form-label">Passwort</label>
-            <input
-              type="password"
-              class="form-control"
-              id="registerPassword"
-              [(ngModel)]="password"
-              name="password"
-              placeholder="Passwort"
-              required
-            />
+            <input type="password" class="form-control" id="registerPassword" placeholder="Passwort" [(ngModel)]="password" name="password" required minlength="8" #passwordField="ngModel">
+            <div *ngIf="passwordField.invalid && passwordField.touched" class="text-danger">
+              <div *ngIf="passwordField.errors?.['required']">Passwort ist erforderlich.</div>
+              <div *ngIf="passwordField.errors?.['minlength']">Passwort muss mindestens 8 Zeichen lang sein.</div>
+            </div>
           </div>
           <!-- Submit button -->
-          <button type="submit" class="btn btn-primary">Registrieren</button>
+          <button type="submit" class="btn btn-primary" [disabled]="registrationForm.invalid">Registrieren</button>
         </form>
       </div>
     </div>

@@ -16,3 +16,5 @@ export class RegisterComponent {
     this.authService.register(this.email, this.password);
   }
 }
+
+

@@ -1,233 +1,323 @@
-<div class="p-5">
-  <div class="text-end">
-    <button class="btn btn-primary" (click)="logout()">Logout</button>
+<div class="container p-5">
+  <div class="text-end mb-4">
+    <button class="btn btn-primary" (click)="logout()">Abmelden</button>
   </div>
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <!-- Title Section -->
-        <section class="p-2 mb-4">
-          <h1>Antrag auf Wohnungsbauprämie 2023</h1>
-          <h2>für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2>
-          <p>
-            Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember
-            2026
-          </p>
-        </section>
-
-        <!-- Form Section -->
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-          <!-- Identification Number Section -->
-          <section class="p-2 mb-4">
+  <div>
+    <h1 class="mb-3">Antrag auf Wohnungsbauprämie 2023</h1>
+    <h2 class="mb-2">für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2>
+    <p class="mb-4">
+      Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember 2026
+    </p>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+      <!-- Identifikationsnummer Section -->
+      <fieldset class="mb-4">
+        <legend>Identifikationsnummern</legend>
+        <div class="row">
+          <div class="col">
+            <label for="identifikationsnummer" class="form-label"
+              >Identifikationsnummer Prämienberechtigte(r) *</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="identifikationsnummer"
+              formControlName="identifikationsnummer"
+            />
+          </div>
+          <div class="col">
+            <label for="identifikationsnummerEhegatte" class="form-label"
+              >Identifikationsnummer Ehegatte/Lebenspartner *</label
+            >
+            <input
+              type="text"
+              class="form-control"
+              id="identifikationsnummerEhegatte"
+              formControlName="identifikationsnummerEhegatte"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <!-- Personal Information Section -->
+      <fieldset class="mb-4">
+        <legend>I. Angaben zur Person</legend>
+        <div class="row">
+          <div class="col">
+            <label for="familienname" class="form-label">Familienname *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="familienname"
+              formControlName="familienname"
+            />
+          </div>
+          <div class="col">
+            <label for="vorname" class="form-label">Vorname *</label>
+            <input
+              type="text"
+              class="form-control"
+              id="vorname"
+              formControlName="vorname"
+            />
+          </div>
+          <div class="col">
+            <label for="geburtsdatum" class="form-label">Geburtsdatum *</label>
+            <input
+              type="date"
+              class="form-control"
+              id="geburtsdatum"
+              formControlName="geburtsdatum"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <!-- Partner Information Section -->
+      <fieldset class="mb-4">
+        <legend>Ehegatte/Lebenspartner</legend>
+        <div class="row">
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="partnerFamilienname"
+              placeholder="Familienname"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="text"
+              class="form-control"
+              formControlName="partnerVorname"
+              placeholder="Vorname"
+            />
+          </div>
+          <div class="col">
+            <input
+              type="date"
+              class="form-control"
+              formControlName="partnerGeburtsdatum"
+              placeholder="Geburtsdatum"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <!-- Residence Information Section -->
+      <fieldset class="mb-4">
+        <legend>
+          Wohnsitz des/der Prämienberechtigten bei Antragstellung *
+        </legend>
+        <div class="row g-3">
+          <div class="col-12">
+            <label for="strasse" class="form-label">Straße</label>
+            <input
+              type="text"
+              class="form-control"
+              id="strasse"
+              formControlName="strasse"
+            />
+          </div>
+          <div class="col-12">
+            <label for="hausnummer" class="form-label">Hausnummer</label>
+            <input
+              type="text"
+              class="form-control"
+              id="hausnummer"
+              formControlName="hausnummer"
+            />
+          </div>
+          <div class="col-md-6">
+            <label for="stadt" class="form-label">Stadt</label>
+            <input
+              type="text"
+              class="form-control"
+              id="stadt"
+              formControlName="stadt"
+            />
+          </div>
+          <div class="col-md-4">
+            <label for="bundesland" class="form-label">Bundesland</label>
+            <select
+              class="form-select"
+              id="bundesland"
+              formControlName="bundesland"
+            >
+              <option selected>Bitte wählen...</option>
+              <option>Hessen</option>
+              <option>Berlin</option>
+              <option>Bayern</option>
+              <option>Baden-Württemberg</option>
+            </select>
+          </div>
+          <div class="col-md-2">
+            <label for="postleitzahl" class="form-label">Postleitzahl</label>
+            <input
+              type="text"
+              class="form-control"
+              id="postleitzahl"
+              formControlName="postleitzahl"
+            />
+          </div>
+        </div>
+      </fieldset>
+      <!-- Claim Information Section -->
+      <div class="mb-4">
+        <label for="anspruchSparjahr" class="form-label"
+          >Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie
+          als</label
+        >
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="alleinstehend"
+            formControlName="wohnungsbaupraemie"
+            value="alleinstehend"
+          />
+          <label class="form-check-label" for="alleinstehend"
+            >Alleinstehende(r)</label
+          >
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="ehegatteLebenspartner"
+            formControlName="wohnungsbaupraemie"
+            value="ehegatteLebenspartner"
+          />
+          <label class="form-check-label" for="ehegatteLebenspartner"
+            >Ehegatte/Lebenspartner</label
+          >
+        </div>
+      </div>
+      <!-- Expenditure Information Section -->
+      <fieldset class="mb-4">
+        <legend>II. Aufwendungen, für die eine Prämie beantragt wird</legend>
+        <p>
+          <small
+            >Für vermögenswirksame Leistungen, für die Anspruch auf
+            Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt.</small
+          >
+          <strong>③</strong>
+        </p>
+      </fieldset>
+      <!-- Dynamic Forms Section -->
+      <div *ngFor="let dynamicForm of dynamicForms; let i = index" class="mb-4">
+        <fieldset>
+          <legend>Vertrag Nummer {{ i + 1 }}</legend>
+          <div class="flex-row mb-3">
             <div class="row">
-              <div class="col">
-                <label for="identifikationsnummer" class="form-label">
-                  <strong>Identifikationsnummer Prämienberechtigte(r) *</strong>
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="identifikationsnummer"
-                />
-              </div>
-              <div class="col">
-                <label for="identifikationsnummerEhegatte" class="form-label">
-                  <strong
-                    >Identifikationsnummer Ehegatte/Lebenspartner *</strong
-                  >
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="identifikationsnummerEhegatte"
-                />
-              </div>
-            </div>
-          </section>
-
-          <!-- Personal Information Section -->
-          <section class="p-2 mb-4">
-            <h2>I. Angaben zur Person</h2>
-            <div class="row">
-              <div class="col">
-                <label for="familienname" class="form-label">
-                  <strong>Familienname *</strong>
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="familienname"
-                />
-              </div>
-              <div class="col">
-                <label for="vorname" class="form-label">
-                  <strong>Vorname *</strong>
-                </label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="vorname"
-                />
-              </div>
-              <div class="col">
-                <label for="geburtsdatum" class="form-label">
-                  <strong>Geburtsdatum *</strong>
-                </label>
-                <input
-                  type="date"
-                  class="form-control"
-                  formControlName="geburtsdatum"
-                />
-              </div>
-            </div>
-          </section>
-
-          <!-- Partner Information Section -->
-          <section class="p-2 mb-4">
-            <h2>Ehegatte/Lebenspartner</h2>
-            <div class="row">
-              <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="partnerFamilienname"
-                  placeholder="Familienname"
-                />
-              </div>
-              <div class="col">
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="partnerVorname"
-                  placeholder="Vorname"
-                />
-              </div>
-              <div class="col">
-                <input
-                  type="date"
-                  class="form-control"
-                  formControlName="partnerGeburtsdatum"
-                  placeholder="Geburtsdatum"
-                />
-              </div>
-            </div>
-          </section>
-
-          <!-- Address Section -->
-          <section class="p-2 mb-4">
-            <h2>Wohnsitz des/der Prämienberechtigten bei Antragstellung *</h2>
-            <div class="row g-3">
-              <div class="col-12">
-                <label for="strasse" class="form-label">Straße</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="strasse"
-                />
-              </div>
-              <div class="col-12">
-                <label for="hausnummer" class="form-label">Hausnummer</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="hausnummer"
-                />
-              </div>
-              <div class="col-md-6">
-                <label for="stadt" class="form-label">Stadt</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  formControlName="stadt"
-                />
-              </div>
-              <div class="col-md-4">
-                <label for="bundesland" class="form-label">Bundesland</label>
-                <select class="form-select" formControlName="bundesland">
-                  <option selected>Wählen Sie...</option>
-                  <option>Hessen</option>
-                  <option>Berlin</option>
-                  <option>Bayern</option>
-                  <option>Baden Württemberg</option>
-                </select>
-              </div>
-              <div class="col-md-2">
-                <label for="postleitzahl" class="form-label"
-                  >Postleitzahl</label
+              <div class="col mb-3">
+                  <label for="vertragsnummer-{{ i }}" class="form-label"
+                  >Vertragsnummer</label
                 >
                 <input
                   type="text"
                   class="form-control"
-                  formControlName="postleitzahl"
+                  [formControlName]="'vertragsnummer' + i"
+                  id="vertragsnummer-{{ i }}"
+                  placeholder="Vertragsnummer"
                 />
               </div>
             </div>
-          </section>
 
-          <!-- Claim Section -->
-          <section class="p-2 mb-4">
-            <label for="anspruchSparjahr" class="form-label">
-              Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie als
-            </label>
-            <div class="form-check">
-              <input
-                class="form-check-input"
-                type="radio"
-                formControlName="wohnungsbaupraemie"
-                value="alleinstehend"
-              />
-              <label class="form-check-label" for="alleinstehend"
-                >Alleinstehende(r)</label
+            <div class="row">
+            <div class="col mb-3">
+              <label for="abschlussdatum-{{ i }}" class="form-label"
+                >Abschlussdatum Monat/Jahr</label
               >
-            </div>
-            <div class="form-check">
               <input
-                class="form-check-input"
-                type="radio"
-                formControlName="wohnungsbaupraemie"
-                value="ehegatteLebenspartner"
+                type="text"
+                class="form-control"
+                [formControlName]="'abschlussdatum' + i"
+                id="abschlussdatum-{{ i }}"
+                placeholder="Abschlussdatum"
               />
-              <label class="form-check-label" for="ehegatteLebenspartner"
-                >Ehegatte/Lebenspartner</label
-              >
             </div>
-          </section>
-
-          <!-- Expenditures Section -->
-          <section class="p-2 mb-4">
-            <h2>II. Aufwendungen, für die eine Prämie beantragt wird</h2>
-            <p>
-              <small>
-                Für vermögenswirksame Leistungen, für die Anspruch auf
-                Arbeitnehmer-Sparzulage besteht, wird keine Prämie gewährt.
-              </small>
-              <strong>③</strong>
-            </p>
-            <p>
-              <small>
-                Bei Beiträgen an Bausparkassen zur Erlangung von Baudarlehen
-                kann eine Prämie nur gewährt werden, wenn die an dieselbe
-                Bausparkasse geleisteten Beiträge (ohne vermögenswirksame
-                Leistungen, für die Anspruch auf Arbeitnehmer-Sparzulage
-                besteht) mindestens 50 Euro betragen haben. Werden Beiträge
-                zugunsten eines zertifizierten Altersvorsorgevertrages den
-                Altersvorsorgebeiträgen zugeordnet, handelt es sich bei allen
-                Beiträgen zu diesem Vertrag bis zu den in § 10a Abs. 1 des
-                Einkommensteuergesetzes genannten Höchstbeträgen um keine
-                prämienbegünstigten Aufwendungen.
-              </small>
-            </p>
-          </section>
-
-          <div class="text-center">
-            <!-- Submit Button -->
-            <button type="submit" class="btn btn-primary">Submit</button>
-            <button class="btn btn-secondary ms-2" (click)="downloadXML()">
-              Download as XML
-            </button>
           </div>
-        </form>
+          <div class="row">
+            <div class="col mb-3">
+              <label for="aufwendungen2022-{{ i }}" class="form-label"
+                >Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
+                Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
+                Prämienauszahlung</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                [formControlName]="'aufwendungen2022Praemienauszahlung' + i"
+                id="aufwendungen2022-{{ i }}"
+                placeholder="Aufwendungen 2022"
+              />
+            </div>
+            </div>
+            <div class="row">
+              <div class="col mb-3">
+                <label
+                for="aufwendungen2022Praemienvormerkung-{{ i }}"
+                class="form-label"
+                >Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
+                Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
+                Prämienvormerkung</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                [formControlName]="'aufwendungen2022Praemienvormerkung' + i"
+                id="aufwendungen2022Praemienvormerkung-{{ i }}"
+                placeholder="Aufwendungen 2022 Prämienvormerkung"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
+            <label
+                for="hoechstbetragPraemiengewaehrung-{{ i }}"
+                class="form-label"
+                >Bei Überschreitung des Höchstbetrags Prämiengewährung
+                für</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                [formControlName]="'hoechstbetragPraemiengewaehrung' + i"
+                id="hoechstbetragPraemiengewaehrung-{{ i }}"
+                placeholder="Höchstbetrag Prämiengewährung"
+              />
+            </div>
+          </div>
+          <div class="row">
+            <div class="col mb-3">
+            <label
+                for="vermoegenswirksameLeistungen-{{ i }}"
+                class="form-label"
+                >nachrichtlich: vermögenswirksame Leistungen</label
+              >
+              <input
+                type="text"
+                class="form-control"
+                [formControlName]="'vermoegenswirksameLeistungen' + i"
+                id="vermoegenswirksameLeistungen-{{ i }}"
+                placeholder="vermögenswirksame Leistungen"
+              />
+            </div>
+          </div>
+          <div class="col-auto align-self-end">
+              <button class="btn btn-danger me-2" (click)="removeForm(i)">
+                Vertrag entfernen
+              </button>
+              <button class="btn btn-success" (click)="addForm()">
+                Vertrag hinzufügen
+              </button>
+            </div>
+          </div>
+        </fieldset>
       </div>
-    </div>
+      <div class="text-center">
+        <button type="submit" class="btn btn-primary">Absenden</button>
+        <button class="btn btn-secondary ms-2" (click)="downloadXML()">
+          Als XML herunterladen
+        </button>
+      </div>
+    </form>
   </div>
 </div>

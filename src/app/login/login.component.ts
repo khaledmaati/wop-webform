@@ -10,9 +10,13 @@ export class LoginComponent {
   email!: string;
   password!: string;
 
+  isPasswordIncorrect: boolean = false;
+
+
   constructor(private authService: AuthService) {}
 
   login() {
     this.authService.login(this.email, this.password);
+    this.isPasswordIncorrect = true;
   }
 }
