@@ -36,11 +36,11 @@ export class FormComponent {
       partnerFamilienname: [''],
       partnerVorname: [''],
       partnerGeburtsdatum: [''],
-      strasse: [''],
-      hausnummer: [''],
-      stadt: [''],
-      bundesland: [''],
-      postleitzahl: [''],
+      strasse: ['', Validators.required],
+      hausnummer: ['', Validators.required],
+      stadt: ['', Validators.required],
+      bundesland: ['', Validators.required],
+      postleitzahl: ['', Validators.required],
       wohnungsbaupraemie: ['', Validators.required],
       dynamicForms: this.fb.array([]),
     });
@@ -76,17 +76,23 @@ export class FormComponent {
     }
   }
 
-  onSubmit(): void {
+onSubmit(): void {
+  // Check if the form is valid
+  if (this.form.valid) {
     this.firestore
       .collection('wohnungsbaupraemie')
       .add(this.form.value)
       .then(() => {
         console.log('Data saved to Firestore');
-        this.router.navigate(['/form-sent-notification']); // Step 3: Navigate on Success
+        this.router.navigate(['/form-sent-notification']); // Navigate on Success
       })
       .catch((error) => console.error('Error saving data to Firestore', error));
+  } else {
+    // Form is not valid
+    // Display an error message or highlight the invalid fields
+    alert('Please fill all required fields correctly.');
   }
-
+}
   downloadXML() {
     const data = this.form.value;
     const xmlData = this.jsonToXML(data);
