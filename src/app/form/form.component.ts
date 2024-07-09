@@ -3,11 +3,12 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { saveAs } from 'file-saver-es';
 import { AuthService } from '../auth.service';
+import { Router } from '@angular/router'; // Step 1: Import Router
 
 @Component({
   selector: 'app-form',
   templateUrl: './form.component.html',
-  styleUrl: './form.component.css',
+  styleUrls: ['./form.component.css'],
 })
 export class FormComponent {
   note2 =
@@ -22,7 +23,9 @@ export class FormComponent {
   constructor(
     private authService: AuthService,
     private fb: FormBuilder,
-    private firestore: AngularFirestore
+    private firestore: AngularFirestore,
+    private router: Router // Step 2: Inject Router in Constructor
+
   ) {
     this.form = this.fb.group({
       identifikationsnummer: ['', Validators.required],
@@ -42,8 +45,7 @@ export class FormComponent {
       dynamicForms: this.fb.array([]),
     });
 
-    // Initialize with one form
-    this.addForm();
+    this.addForm(); // Initialize with one form
   }
 
   logout() {
@@ -51,22 +53,21 @@ export class FormComponent {
   }
 
   addForm(): void {
+    const index = this.dynamicForms.length + 1;
     const dynamicForm = this.fb.group({
-      field1: [''],
-      field2: [''],
-      field3: [''],
-      field4: [''],
-      field5: [''],
-      field6: [''],
+      [`vertragsnummer-${index}`]: [''],
+      [`abschlussdatum-${index}`]: [''],
+      [`bausparsumme-${index}`]: [''],
+      [`bausparbeitrag-${index}`]: [''],
+      [`vermoegenswirksameLeistungen-${index}`]: [''],
+      [`wohnungsbaupraemie-${index}`]: ['']
     });
 
-    // Step 2: Implement addForm method
     this.dynamicForms.push(dynamicForm);
     (this.form.get('dynamicForms') as FormArray).push(dynamicForm);
   }
 
   removeForm(index: number): void {
-    // Step 3: Implement removeForm method
     if (this.dynamicForms.length > 1) {
       this.dynamicForms.splice(index, 1);
       (this.form.get('dynamicForms') as FormArray).removeAt(index);
@@ -79,7 +80,10 @@ export class FormComponent {
     this.firestore
       .collection('wohnungsbaupraemie')
       .add(this.form.value)
-      .then(() => console.log('Data saved to Firestore'))
+      .then(() => {
+        console.log('Data saved to Firestore');
+        this.router.navigate(['/form-sent-notification']); // Step 3: Navigate on Success
+      })
       .catch((error) => console.error('Error saving data to Firestore', error));
   }
 
@@ -91,51 +95,45 @@ export class FormComponent {
   }
 
   jsonToXML(json: any): string {
-  let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<Antrag>\n';
-  xml += this.convertToJson(json); // Note: Consider renaming this method to reflect its purpose better, e.g., convertToXml
-  xml += '</Antrag>';
-  return xml;
-}
-
-convertToJson(obj: any, indent = '  '): string {
-  let xml = '';
-  for (const key in obj) {
-    if (!obj.hasOwnProperty(key)) continue;
-    if (typeof obj[key] === 'object' && obj[key] !== null) {
-      if (Array.isArray(obj[key])) {
-        obj[key].forEach((item: any) => {
-          xml += `${indent}<${key}>\n`;
-          xml += this.convertToJson(item, indent + '  ');
-          xml += `${indent}</${key}>\n`;
-        });
-      } else {
-        xml += `${indent}<${key}>\n`;
-        xml += this.convertToJson(obj[key], indent + '  ');
-        xml += `${indent}</${key}>\n`;
-      }
-    } else {
-      const value = this.escapeXml(String(obj[key]));
-      xml += `${indent}<${key}>${value}</${key}>\n`;
-    }
+    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<Antrag>\n';
+    xml += this.convertToXml(json);
+    xml += '</Antrag>';
+    return xml;
   }
-  return xml;
-}
+
+  convertToXml(obj: any, indent = '  '): string {
+    let xml = '';
+    for (const key in obj) {
+      if (!obj.hasOwnProperty(key)) continue;
+      if (typeof obj[key] === 'object' && obj[key] !== null) {
+        if (Array.isArray(obj[key])) {
+          obj[key].forEach((item: any) => {
+            xml += `${indent}<${key}>\n`;
+            xml += this.convertToXml(item, indent + '  ');
+            xml += `${indent}</${key}>\n`;
+          });
+        } else {
+          xml += `${indent}<${key}>\n`;
+          xml += this.convertToXml(obj[key], indent + '  ');
+          xml += `${indent}</${key}>\n`;
+        }
+      } else {
+        const value = this.escapeXml(String(obj[key]));
+        xml += `${indent}<${key}>${value}</${key}>\n`;
+      }
+    }
+    return xml;
+  }
 
   escapeXml(unsafe: string): string {
     return unsafe.replace(/[<>&'"]/g, (c) => {
       switch (c) {
-        case '<':
-          return '&lt;';
-        case '>':
-          return '&gt;';
-        case '&':
-          return '&amp;';
-        case "'":
-          return '&apos;';
-        case '"':
-          return '&quot;';
-        default:
-          return c;
+        case '<': return '&lt;';
+        case '>': return '&gt;';
+        case '&': return '&amp;';
+        case "'": return '&apos;';
+        case '"': return '&quot;';
+        default: return c;
       }
     });
   }

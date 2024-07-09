@@ -6,6 +6,7 @@ import { FormComponent } from './form/form.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { FormSentNotificationComponent } from './form-sent-notification/form-sent-notification.component';
 
 // Define routes
 const routes: Routes = [
@@ -13,6 +14,8 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'form', component: FormComponent, canActivate: [AuthGuard] }, // Protect form page with AuthGuard
   { path: 'register', component: RegisterComponent },
+  { path: 'form-sent-notification', component: FormSentNotificationComponent },
+
 ];
 
 // Use consistent formatting for decorators
