@@ -339,20 +339,19 @@
               beachten.
             </label>
           </div>
-          <div style="margin-top: 30px">
-            <p>
-              Für das Sparjahr 2022 habe(n) ich (wir) bereits eine
-              Wohnungsbauprämie bei einer (einem) anderen Bausparkasse
-              (Unternehmen) beantragt, aber den prämienbegünstigten Höchstbetrag
-              (700 / 1.400 Euro) noch nicht voll ausgeschöpft ©:
-            </p>
-          </div>
+          <p style="margin-top: 30px">
+            Für das Sparjahr 2022 habe(n) ich (wir) bereits eine
+            Wohnungsbauprämie bei einer (einem) anderen Bausparkasse
+            (Unternehmen) beantragt, aber den prämienbegünstigten Höchstbetrag
+            (700 / 1.400 Euro) noch nicht voll ausgeschöpft ©:
+          </p>
           <div class="form-check">
             <input
               class="form-check-input"
               type="radio"
               name="flexRadioDefault"
               id="flexRadioDefault1"
+              value="nein"
             />
             <label class="form-check-label" for="flexRadioDefault1">
               Nein
@@ -364,15 +363,16 @@
               type="radio"
               name="flexRadioDefault"
               id="flexRadioDefault2"
+              value="ja"
               checked
             />
-            <label class="form-check-label" for="flexRadioDefault2">
+            <label class="form-check-label" for="flexRadioDefault2" style="margin-bottom: 50px;">
               ja. Ich (wir) habe(n) bereits Aufwendungen in Höhe von
               <input
                 type="number"
                 class="form-control"
-                id="postleitzahl"
-                formControlName="postleitzahl"
+                formControlName="Aufwendungen"
+                id="Aufwendungen"
               />
               Euro geltend gemacht.
             </label>
