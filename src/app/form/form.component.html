@@ -207,7 +207,7 @@
           <div class="flex-row mb-3">
             <div class="row">
               <div class="col mb-3">
-                  <label for="vertragsnummer-{{ i }}" class="form-label"
+                <label for="vertragsnummer-{{ i }}" class="form-label"
                   >Vertragsnummer</label
                 >
                 <input
@@ -221,94 +221,161 @@
             </div>
 
             <div class="row">
-            <div class="col mb-3">
-              <label for="abschlussdatum-{{ i }}" class="form-label"
-                >Abschlussdatum Monat/Jahr</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                [formControlName]="'abschlussdatum' + i"
-                id="abschlussdatum-{{ i + 1 }}"
-                placeholder="Abschlussdatum"
-              />
+              <div class="col mb-3">
+                <label for="abschlussdatum-{{ i }}" class="form-label"
+                  >Abschlussdatum Monat/Jahr</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControlName]="'abschlussdatum' + i"
+                  id="abschlussdatum-{{ i + 1 }}"
+                  placeholder="Abschlussdatum"
+                />
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col mb-3">
-              <label for="aufwendungen2022-{{ i }}" class="form-label"
-                >Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
-                Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
-                Prämienauszahlung</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                [formControlName]="'aufwendungen2022Praemienauszahlung' + i"
-                id="aufwendungen2022-{{ i + 1 }}"
-                placeholder="Aufwendungen 2022"
-              />
-            </div>
+            <div class="row">
+              <div class="col mb-3">
+                <label for="aufwendungen2022-{{ i }}" class="form-label"
+                  >Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
+                  Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
+                  Prämienauszahlung</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControlName]="'aufwendungen2022Praemienauszahlung' + i"
+                  id="aufwendungen2022-{{ i + 1 }}"
+                  placeholder="Aufwendungen 2022"
+                />
+              </div>
             </div>
             <div class="row">
               <div class="col mb-3">
                 <label
-                for="aufwendungen2022Praemienvormerkung-{{ i }}"
-                class="form-label"
-                >Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
-                Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
-                Prämienvormerkung</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                [formControlName]="'aufwendungen2022Praemienvormerkung' + i"
-                id="aufwendungen2022Praemienvormerkung-{{ i + 1 }}"
-                placeholder="Aufwendungen 2022 Prämienvormerkung"
-              />
+                  for="aufwendungen2022Praemienvormerkung-{{ i }}"
+                  class="form-label"
+                  >Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
+                  Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
+                  Prämienvormerkung</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControlName]="'aufwendungen2022Praemienvormerkung' + i"
+                  id="aufwendungen2022Praemienvormerkung-{{ i + 1 }}"
+                  placeholder="Aufwendungen 2022 Prämienvormerkung"
+                />
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col mb-3">
-            <label
-                for="hoechstbetragPraemiengewaehrung-{{ i }}"
-                class="form-label"
-                >Bei Überschreitung des Höchstbetrags Prämiengewährung
-                für</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                [formControlName]="'hoechstbetragPraemiengewaehrung' + i"
-                id="hoechstbetragPraemiengewaehrung-{{ i + 1 }}"
-                placeholder="Höchstbetrag Prämiengewährung"
-              />
+            <div class="row">
+              <div class="col mb-3">
+                <label
+                  for="hoechstbetragPraemiengewaehrung-{{ i }}"
+                  class="form-label"
+                  >Bei Überschreitung des Höchstbetrags Prämiengewährung
+                  für</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControlName]="'hoechstbetragPraemiengewaehrung' + i"
+                  id="hoechstbetragPraemiengewaehrung-{{ i + 1 }}"
+                  placeholder="Höchstbetrag Prämiengewährung"
+                />
+              </div>
             </div>
-          </div>
-          <div class="row">
-            <div class="col mb-3">
-            <label
-                for="vermoegenswirksameLeistungen-{{ i }}"
-                class="form-label"
-                >nachrichtlich: vermögenswirksame Leistungen</label
-              >
-              <input
-                type="text"
-                class="form-control"
-                [formControlName]="'vermoegenswirksameLeistungen' + i"
-                id="vermoegenswirksameLeistungen-{{ i + 1 }}"
-                placeholder="vermögenswirksame Leistungen"
-              />
+            <div class="row">
+              <div class="col mb-3">
+                <label
+                  for="vermoegenswirksameLeistungen-{{ i }}"
+                  class="form-label"
+                  >nachrichtlich: vermögenswirksame Leistungen</label
+                >
+                <input
+                  type="text"
+                  class="form-control"
+                  [formControlName]="'vermoegenswirksameLeistungen' + i"
+                  id="vermoegenswirksameLeistungen-{{ i + 1 }}"
+                  placeholder="vermögenswirksame Leistungen"
+                />
+              </div>
             </div>
-          </div>
-          <div class="col-auto align-self-end">
-              <button class="btn btn-danger me-2" (click)="removeForm(i)">
+            <div class="col-auto align-self-end">
+              <button
+                type="button"
+                class="btn btn-danger me-2"
+                (click)="removeForm(i)"
+              >
                 Vertrag entfernen
               </button>
-              <button class="btn btn-success" (click)="addForm()">
+              <button type="button" class="btn btn-success" (click)="addForm()">
                 Vertrag hinzufügen
               </button>
             </div>
+          </div>
+
+          <p style="margin-top: 50px">
+            <strong
+              >Die nachstehenden Angaben sind für die Ermittlung der Prämie
+              erforderlich.③</strong
+            >
+          </p>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="checkbox"
+              id="alleinstehend"
+              formControlName="wohnungsbaupraemie"
+              value="alleinstehend"
+            />
+            <label class="form-check-label" for="alleinstehend">
+              Ich (wir) beantrage(n) die Einbeziehung der vermögenswirksamen
+              Leistungen in die prämienbegünstigten Aufwendungen durch die
+              Bausparkasse, weil das maßgebende zu versteuernden Einkommen über
+              17.900 Euro (Alleinstehende) bzw. 35.800 Euro
+              (Ehegatten/Lebenspartner *) liegt und deshalb kein Anspruch auf
+              Arbeitnehmer-Sparzulage besteht. Bitte unbedingt Erläuterung ®
+              beachten.
+            </label>
+          </div>
+          <div style="margin-top: 30px">
+            <p>
+              Für das Sparjahr 2022 habe(n) ich (wir) bereits eine
+              Wohnungsbauprämie bei einer (einem) anderen Bausparkasse
+              (Unternehmen) beantragt, aber den prämienbegünstigten Höchstbetrag
+              (700 / 1.400 Euro) noch nicht voll ausgeschöpft ©:
+            </p>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault1"
+            />
+            <label class="form-check-label" for="flexRadioDefault1">
+              Nein
+            </label>
+          </div>
+          <div class="form-check">
+            <input
+              class="form-check-input"
+              type="radio"
+              name="flexRadioDefault"
+              id="flexRadioDefault2"
+              checked
+            />
+            <label class="form-check-label" for="flexRadioDefault2">
+              ja. Ich (wir) habe(n) bereits Aufwendungen in Höhe von
+              <input
+                type="number"
+                class="form-control"
+                id="postleitzahl"
+                formControlName="postleitzahl"
+              />
+              Euro geltend gemacht.
+            </label>
           </div>
         </fieldset>
       </div>

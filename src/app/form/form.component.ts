@@ -25,7 +25,6 @@ export class FormComponent {
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     private router: Router // Step 2: Inject Router in Constructor
-
   ) {
     this.form = this.fb.group({
       identifikationsnummer: ['', Validators.required],
@@ -60,12 +59,12 @@ export class FormComponent {
       [`bausparsumme-${index}`]: [''],
       [`bausparbeitrag-${index}`]: [''],
       [`vermoegenswirksameLeistungen-${index}`]: [''],
-      [`wohnungsbaupraemie-${index}`]: ['']
+      [`wohnungsbaupraemie-${index}`]: [''],
     });
-
+  
     this.dynamicForms.push(dynamicForm);
     (this.form.get('dynamicForms') as FormArray).push(dynamicForm);
-  }
+  }  
 
   removeForm(index: number): void {
     if (this.dynamicForms.length > 1) {
@@ -76,24 +75,42 @@ export class FormComponent {
     }
   }
 
-onSubmit(): void {
-  // Check if the form is valid
-  if (this.form.valid) {
-    this.firestore
-      .collection('wohnungsbaupraemie')
-      .add(this.form.value)
-      .then(() => {
-        console.log('Data saved to Firestore');
-        this.router.navigate(['/form-sent-notification']); // Navigate on Success
-      })
-      .catch((error) => console.error('Error saving data to Firestore', error));
-  } else {
-    // Form is not valid
-    // Display an error message or highlight the invalid fields
-    alert('Please fill all required fields correctly.');
+  onSubmit(): void {
+    if (this.form.valid) {
+      this.firestore
+        .collection('wohnungsbaupraemie')
+        .add(this.form.value)
+        .then((docRef) => {
+          console.log('Main form data saved to Firestore', docRef.id);
+  
+          const dynamicFormsPromises = this.dynamicForms.map((form, index) =>
+            this.firestore
+              .collection('wohnungsbaupraemie')
+              .doc(docRef.id)
+              .collection('dynamicForms')
+              .add(form.value)
+              .then(() => {
+                console.log(`Dynamic form ${index + 1} saved successfully`);
+              })
+              .catch((error) => {
+                console.error(`Error saving dynamic form ${index + 1}`, error);
+              })
+          );
+  
+          return Promise.all(dynamicFormsPromises);
+        })
+        .then(() => {
+          console.log('All data saved to Firestore');
+          this.router.navigate(['/form-sent-notification']);
+        })
+        .catch((error) => {
+          console.error('Error saving main form data to Firestore', error);
+        });
+    } else {
+      alert('Please fill all required fields correctly.');
+    }
   }
-}
-  downloadXML() {
+    downloadXML() {
     const data = this.form.value;
     const xmlData = this.jsonToXML(data);
     const blob = new Blob([xmlData], { type: 'application/xml' });
@@ -134,12 +151,18 @@ onSubmit(): void {
   escapeXml(unsafe: string): string {
     return unsafe.replace(/[<>&'"]/g, (c) => {
       switch (c) {
-        case '<': return '&lt;';
-        case '>': return '&gt;';
-        case '&': return '&amp;';
-        case "'": return '&apos;';
-        case '"': return '&quot;';
-        default: return c;
+        case '<':
+          return '&lt;';
+        case '>':
+          return '&gt;';
+        case '&':
+          return '&amp;';
+        case "'":
+          return '&apos;';
+        case '"':
+          return '&quot;';
+        default:
+          return c;
       }
     });
   }
