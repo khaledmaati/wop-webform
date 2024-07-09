@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'form', component: FormComponent, canActivate: [AuthGuard] }, // Protect form page with AuthGuard
   { path: 'register', component: RegisterComponent },
-  { path: 'form-sent-notification', component: FormSentNotificationComponent },
+  { path: 'form-sent-notification', component: FormSentNotificationComponent, canActivate: [AuthGuard] },
 
 ];
 
