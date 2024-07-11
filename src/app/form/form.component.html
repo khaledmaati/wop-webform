@@ -159,36 +159,40 @@
         </div>
       </fieldset>
       <!-- Claim Information Section -->
-      <div class="mb-4">
-        <label for="anspruchSparjahr" class="form-label"
-          >Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie
-          als</label
-        >
+      <fieldset class="mb-4">
+        <label for="familienstand" class="form-label">
+          Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie als
+        </label>
+
         <div class="form-check">
           <input
             class="form-check-input"
             type="radio"
+            name="flexRadioDefault"
             id="alleinstehend"
-            formControlName="wohnungsbaupraemie"
+            formControlName="familienstand "
             value="alleinstehend"
           />
-          <label class="form-check-label" for="alleinstehend"
-            >Alleinstehende(r)</label
-          >
+          <label class="form-check-label" for="flexRadioDefault1">
+            Alleinstehende(r)
+          </label>
         </div>
         <div class="form-check">
           <input
             class="form-check-input"
             type="radio"
+            name="flexRadioDefault"
             id="ehegatteLebenspartner"
-            formControlName="wohnungsbaupraemie"
+            formControlName="familienstand"
             value="ehegatteLebenspartner"
+            checked
           />
-          <label class="form-check-label" for="ehegatteLebenspartner"
-            >Ehegatte/Lebenspartner</label
-          >
+          <label class="form-check-label" for="flexRadioDefault2">
+            Ehegatte/Lebenspartner
+          </label>
         </div>
-      </div>
+      </fieldset>
+
       <!-- Expenditure Information Section -->
       <fieldset class="mb-4">
         <legend>II. Aufwendungen, für die eine Prämie beantragt wird</legend>
@@ -201,184 +205,131 @@
         </p>
       </fieldset>
       <!-- Dynamic Forms Section -->
-      <div *ngFor="let dynamicForm of dynamicForms; let i = index" class="mb-4">
-        <fieldset>
-          <legend>Vertrag Nummer {{ i + 1 }}</legend>
-          <div class="flex-row mb-3">
-            <div class="row">
-              <div class="col mb-3">
-                <label for="vertragsnummer-{{ i }}" class="form-label"
-                  >Vertragsnummer</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  [formControlName]="'vertragsnummer' + i"
-                  id="vertragsnummer-{{ i + 1 }}"
-                  placeholder="Vertragsnummer"
-                />
+      <div formArrayName="dynamicForms">
+        <div
+          *ngFor="let dynamicForm of dynamicForms.controls; let i = index"
+          [formGroupName]="i"
+          class="mb-4"
+        >
+          <fieldset>
+            <legend>Vertrag Nummer {{ i + 1 }}</legend>
+            <div class="flex-row mb-3">
+              <div class="row">
+                <div class="col mb-3">
+                  <label for="vertragsnummer-{{ i }}" class="form-label">
+                    Vertragsnummer
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="vertragsnummer"
+                    id="vertragsnummer-{{ i }}"
+                    placeholder="Vertragsnummer"
+                  />
+                </div>
               </div>
-            </div>
 
-            <div class="row">
-              <div class="col mb-3">
-                <label for="abschlussdatum-{{ i }}" class="form-label"
-                  >Abschlussdatum Monat/Jahr</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  [formControlName]="'abschlussdatum' + i"
-                  id="abschlussdatum-{{ i + 1 }}"
-                  placeholder="Abschlussdatum"
-                />
+              <div class="row">
+                <div class="col mb-3">
+                  <label for="abschlussdatum-{{ i }}" class="form-label">
+                    Abschlussdatum Monat/Jahr
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="abschlussdatum"
+                    id="abschlussdatum-{{ i }}"
+                    placeholder="Abschlussdatum"
+                  />
+                </div>
               </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label for="aufwendungen2022-{{ i }}" class="form-label"
-                  >Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
-                  Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
-                  Prämienauszahlung</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  [formControlName]="'aufwendungen2022Praemienauszahlung' + i"
-                  id="aufwendungen2022-{{ i + 1 }}"
-                  placeholder="Aufwendungen 2022"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label
-                  for="aufwendungen2022Praemienvormerkung-{{ i }}"
-                  class="form-label"
-                  >Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
-                  Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
-                  Prämienvormerkung</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  [formControlName]="'aufwendungen2022Praemienvormerkung' + i"
-                  id="aufwendungen2022Praemienvormerkung-{{ i + 1 }}"
-                  placeholder="Aufwendungen 2022 Prämienvormerkung"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label
-                  for="hoechstbetragPraemiengewaehrung-{{ i }}"
-                  class="form-label"
-                  >Bei Überschreitung des Höchstbetrags Prämiengewährung
-                  für</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  [formControlName]="'hoechstbetragPraemiengewaehrung' + i"
-                  id="hoechstbetragPraemiengewaehrung-{{ i + 1 }}"
-                  placeholder="Höchstbetrag Prämiengewährung"
-                />
-              </div>
-            </div>
-            <div class="row">
-              <div class="col mb-3">
-                <label
-                  for="vermoegenswirksameLeistungen-{{ i }}"
-                  class="form-label"
-                  >nachrichtlich: vermögenswirksame Leistungen</label
-                >
-                <input
-                  type="text"
-                  class="form-control"
-                  [formControlName]="'vermoegenswirksameLeistungen' + i"
-                  id="vermoegenswirksameLeistungen-{{ i + 1 }}"
-                  placeholder="vermögenswirksame Leistungen"
-                />
-              </div>
-            </div>
-            <div class="col-auto align-self-end">
-              <button
-                type="button"
-                class="btn btn-danger me-2"
-                (click)="removeForm(i)"
-              >
-                Vertrag entfernen
-              </button>
-              <button type="button" class="btn btn-success" (click)="addForm()">
-                Vertrag hinzufügen
-              </button>
-            </div>
-          </div>
 
-          <p style="margin-top: 50px">
-            <strong
-              >Die nachstehenden Angaben sind für die Ermittlung der Prämie
-              erforderlich.③</strong
-            >
-          </p>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="checkbox"
-              id="alleinstehend"
-              formControlName="wohnungsbaupraemie"
-              value="alleinstehend"
-            />
-            <label class="form-check-label" for="alleinstehend">
-              Ich (wir) beantrage(n) die Einbeziehung der vermögenswirksamen
-              Leistungen in die prämienbegünstigten Aufwendungen durch die
-              Bausparkasse, weil das maßgebende zu versteuernden Einkommen über
-              17.900 Euro (Alleinstehende) bzw. 35.800 Euro
-              (Ehegatten/Lebenspartner *) liegt und deshalb kein Anspruch auf
-              Arbeitnehmer-Sparzulage besteht. Bitte unbedingt Erläuterung ®
-              beachten.
-            </label>
-          </div>
-          <p style="margin-top: 30px">
-            Für das Sparjahr 2022 habe(n) ich (wir) bereits eine
-            Wohnungsbauprämie bei einer (einem) anderen Bausparkasse
-            (Unternehmen) beantragt, aber den prämienbegünstigten Höchstbetrag
-            (700 / 1.400 Euro) noch nicht voll ausgeschöpft ©:
-          </p>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault1"
-              value="nein"
-            />
-            <label class="form-check-label" for="flexRadioDefault1">
-              Nein
-            </label>
-          </div>
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="flexRadioDefault"
-              id="flexRadioDefault2"
-              value="ja"
-              checked
-            />
-            <label class="form-check-label" for="flexRadioDefault2" style="margin-bottom: 50px;">
-              ja. Ich (wir) habe(n) bereits Aufwendungen in Höhe von
-              <input
-                type="number"
-                class="form-control"
-                formControlName="Aufwendungen"
-                id="Aufwendungen"
-              />
-              Euro geltend gemacht.
-            </label>
-          </div>
-        </fieldset>
+              <div class="row">
+                <div class="col mb-3">
+                  <label for="bausparsumme-{{ i }}" class="form-label">
+                    Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
+                    Kontoauszug
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="bausparsumme"
+                    id="bausparsumme-{{ i }}"
+                    placeholder="Aufwendungen 2022"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-3">
+                  <label for="bausparbeitrag-{{ i }}" class="form-label">
+                    Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
+                    Kontoauszug mit Prämienvormerkung
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="bausparbeitrag"
+                    id="bausparbeitrag-{{ i }}"
+                    placeholder="Aufwendungen 2022 Prämienvormerkung"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-3">
+                  <label for="hoechstbetrag-{{ i }}" class="form-label">
+                    Bei Überschreitung des Höchstbetrags Prämiengewährung
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="hoechstbetrag"
+                    id="hoechstbetrag-{{ i }}"
+                    placeholder="Höchstbetrag Prämiengewährung"
+                  />
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col mb-3">
+                  <label
+                    for="vermoegenswirksameLeistungen-{{ i }}"
+                    class="form-label"
+                  >
+                    nachrichtlich: vermögenswirksame Leistungen
+                  </label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    formControlName="vermoegenswirksameLeistungen"
+                    id="vermoegenswirksameLeistungen-{{ i }}"
+                    placeholder="vermögenswirksame Leistungen"
+                  />
+                </div>
+              </div>
+
+              <div class="col-auto align-self-end">
+                <button
+                  type="button"
+                  class="btn btn-danger me-2"
+                  (click)="removeForm(i)"
+                >
+                  Vertrag entfernen
+                </button>
+                <button
+                  type="button"
+                  class="btn btn-success"
+                  (click)="addForm()"
+                >
+                  Vertrag hinzufügen
+                </button>
+              </div>
+            </div>
+          </fieldset>
+        </div>
       </div>
+
       <div class="text-center">
         <button type="submit" class="btn btn-primary">Absenden</button>
         <button class="btn btn-secondary ms-2" (click)="downloadXML()">
