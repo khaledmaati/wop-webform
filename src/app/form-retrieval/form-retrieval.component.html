@@ -1,0 +1,22 @@
+<div class="container">
+  <div
+    class="row justify-content-center align-items-center"
+    style="height: 100vh"
+  >
+    <div class="col-md-8 col-lg-6 col-xl-4">
+      <div class="mb-3">
+        <label for="taxId" class="form-label">Enter Tax ID:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="taxId"
+          [(ngModel)]="taxId"
+          placeholder="Enter Tax ID"
+        />
+      </div>
+      <button (click)="fetchData()" class="btn btn-primary">
+        Download XML
+      </button>
+    </div>
+  </div>
+</div>

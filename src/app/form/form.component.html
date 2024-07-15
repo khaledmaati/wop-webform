@@ -14,14 +14,14 @@
         <legend>Identifikationsnummern</legend>
         <div class="row">
           <div class="col">
-            <label for="identifikationsnummer" class="form-label"
+            <label for="taxId" class="form-label"
               >Identifikationsnummer Prämienberechtigte(r) *</label
             >
             <input
               type="text"
               class="form-control"
-              id="identifikationsnummer"
-              formControlName="identifikationsnummer"
+              id="taxId"
+              formControlName="taxId"
             />
           </div>
           <div class="col">
@@ -332,9 +332,6 @@
 
       <div class="text-center">
         <button type="submit" class="btn btn-primary">Absenden</button>
-        <button class="btn btn-secondary ms-2" (click)="downloadXML()">
-          Als XML herunterladen
-        </button>
       </div>
     </form>
   </div>

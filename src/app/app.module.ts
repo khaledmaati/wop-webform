@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 
 import { AngularFireModule } from '@angular/fire/compat';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { environment } from '../environments/environment';
@@ -20,6 +21,7 @@ import { LandingComponent } from './landing/landing.component';
 import { ListingComponent } from './listing/listing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
+import { FormRetrievalComponent } from './form-retrieval/form-retrieval.component';
 
 
 @NgModule({
@@ -29,7 +31,8 @@ import { RegisterComponent } from './register/register.component';
     ListingComponent,
     LoginComponent,
     LandingComponent,
-    RegisterComponent
+    RegisterComponent,
+    FormRetrievalComponent
   ],
 
   imports: [
@@ -40,6 +43,7 @@ import { RegisterComponent } from './register/register.component';
     // ** Google Firebase Modules **
     AngularFireModule.initializeApp(environment.firebase),
     AngularFireAuthModule,
+    AngularFirestoreModule,
     AngularFireDatabaseModule,
     ReactiveFormsModule
   ],

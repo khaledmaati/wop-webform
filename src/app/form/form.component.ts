@@ -1,7 +1,6 @@
 import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
-import { saveAs } from 'file-saver-es';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -25,7 +24,7 @@ export class FormComponent {
     private router: Router
   ) {
     this.form = this.fb.group({
-      identifikationsnummer: ['', Validators.required],
+      taxId: ['', Validators.required],
       identifikationsnummerEhegatte: ['', Validators.required],
       familienname: ['', Validators.required],
       vorname: ['', Validators.required],
@@ -110,62 +109,6 @@ export class FormComponent {
     }
   }
 
-  downloadXML() {
-    const data = this.form.value;
-    const xmlData = this.jsonToXML(data);
-    const blob = new Blob([xmlData], { type: 'application/xml' });
-    saveAs(blob, 'wohnungsbaupraemie.xml');
-  }
-
-  jsonToXML(json: any): string {
-    let xml = '<?xml version="1.0" encoding="UTF-8"?>\n<Antrag>\n';
-    xml += this.convertToXml(json);
-    xml += '</Antrag>';
-    return xml;
-  }
-
-  convertToXml(obj: any, indent = '  '): string {
-    let xml = '';
-    for (const key in obj) {
-      if (!obj.hasOwnProperty(key)) continue;
-      if (typeof obj[key] === 'object' && obj[key] !== null) {
-        if (Array.isArray(obj[key])) {
-          obj[key].forEach((item: any) => {
-            xml += `${indent}<${key}>\n`;
-            xml += this.convertToXml(item, indent + '  ');
-            xml += `${indent}</${key}>\n`;
-          });
-        } else {
-          xml += `${indent}<${key}>\n`;
-          xml += this.convertToXml(obj[key], indent + '  ');
-          xml += `${indent}</${key}>\n`;
-        }
-      } else {
-        const value = this.escapeXml(String(obj[key]));
-        xml += `${indent}<${key}>${value}</${key}>\n`;
-      }
-    }
-    return xml;
-  }
-
-  escapeXml(unsafe: string): string {
-    return unsafe.replace(/[<>&'"]/g, (c) => {
-      switch (c) {
-        case '<':
-          return '&lt;';
-        case '>':
-          return '&gt;';
-        case '&':
-          return '&amp;';
-        case "'":
-          return '&apos;';
-        case '"':
-          return '&quot;';
-        default:
-          return c;
-      }
-    });
-  }
 
   logout() {
     this.authService.logout();
