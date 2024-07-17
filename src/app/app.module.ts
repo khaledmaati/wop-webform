@@ -17,7 +17,6 @@ import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { FormComponent } from './form/form.component';
-import { LandingComponent } from './landing/landing.component';
 import { ListingComponent } from './listing/listing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
@@ -30,7 +29,6 @@ import { FormRetrievalComponent } from './form-retrieval/form-retrieval.componen
     FormComponent,
     ListingComponent,
     LoginComponent,
-    LandingComponent,
     RegisterComponent,
     FormRetrievalComponent
   ],

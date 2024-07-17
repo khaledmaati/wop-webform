@@ -1,22 +1,32 @@
-<div class="container">
-  <div
-    class="row justify-content-center align-items-center"
-    style="height: 100vh"
-  >
+<div class="container p-5">
+  <div class="text-end mb-4">
+    <button class="btn btn-primary" type="button" (click)="authService.logout($event)">
+      Logout
+    </button>
+  </div>
+  <div class="row justify-content-center align-items-center h-100">
     <div class="col-md-8 col-lg-6 col-xl-4">
-      <div class="mb-3">
-        <label for="taxId" class="form-label">Enter Tax ID:</label>
-        <input
-          type="text"
-          class="form-control"
-          id="taxId"
-          [(ngModel)]="taxId"
-          placeholder="Enter Tax ID"
-        />
-      </div>
-      <button (click)="fetchData()" class="btn btn-primary">
-        Download XML
-      </button>
+      <form #form="ngForm" (ngSubmit)="fetchData()">
+        <div class="mb-3">
+          <label for="taxId" class="form-label">Enter Tax ID:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="taxId"
+            name="taxId"
+            [(ngModel)]="taxId"
+            placeholder="Enter Tax ID"
+            required
+            #taxIdInput="ngModel"
+          />
+          <div *ngIf="taxIdInput.invalid && (taxIdInput.dirty || taxIdInput.touched)" class="text-danger">
+            <div *ngIf="taxIdInput.errors?.['required']">Tax ID is required.</div>
+          </div>
+        </div>
+        <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
+          Download XML
+        </button>
+      </form>
     </div>
   </div>
 </div>

@@ -4,12 +4,9 @@ import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
 
-
 interface UserDocument {
   role: string;
-  // Add other properties expected in the user document as needed
 }
-
 
 @Injectable({
   providedIn: 'root',
@@ -18,7 +15,8 @@ export class AuthService {
   constructor(
     private afAuth: AngularFireAuth,
     private firestore: AngularFirestore,
-    private router: Router) {}
+    private router: Router
+  ) {}
 
   async sendVerificationEmail(email: string): Promise<void> {
     const user = await this.afAuth.currentUser;
@@ -31,7 +29,10 @@ export class AuthService {
 
   async loginUser(email: string, password: string) {
     try {
-      const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+      const result = await this.afAuth.signInWithEmailAndPassword(
+        email,
+        password
+      );
       const uid = result.user?.uid;
       if (uid) {
         const role = await this.getUserRole(uid);
@@ -39,12 +40,16 @@ export class AuthService {
       }
     } catch (error) {
       console.error('Login error', error);
+      alert('Invalid email or password');
     }
   }
 
   async registerUser(email: string, password: string, role: string = 'user') {
     try {
-      const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      const result = await this.afAuth.createUserWithEmailAndPassword(
+        email,
+        password
+      );
       const uid = result.user?.uid;
       if (uid) {
         await this.firestore.collection('users').doc(uid).set({ role });
@@ -55,7 +60,9 @@ export class AuthService {
     }
   }
 
-  async logout() {
+  async logout(event: Event) {
+    event.preventDefault();
+    event.stopPropagation();
     try {
       await this.afAuth.signOut();
       console.log('logged out');
@@ -69,10 +76,14 @@ export class AuthService {
     return this.afAuth.authState;
   }
 
-  
   private async getUserRole(uid: string): Promise<string> {
-    const doc = await this.firestore.collection('users').doc(uid).get().toPromise();
-    if (doc && doc.exists) { // Check if 'doc' is not undefined and exists
+    const doc = await this.firestore
+      .collection('users')
+      .doc(uid)
+      .get()
+      .toPromise();
+    if (doc && doc.exists) {
+      // Check if 'doc' is not undefined and exists
       const userData = doc.data() as UserDocument; // Cast to UserDocument
       return userData.role || 'user'; // Now TypeScript knows about the 'role' property
     } else {

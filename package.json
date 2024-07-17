@@ -52,6 +52,7 @@
     "datatables.net": "^1.11.3",
     "datatables.net-dt": "^1.11.3",
     "embla-carousel-angular": "^14.0.0",
+    "file-saver": "^2.0.5",
     "file-saver-es": "^2.0.5",
     "firebase": "^10.12.3",
     "firebase-admin": "^12.2.0",
