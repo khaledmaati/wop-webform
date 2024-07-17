@@ -1,14 +1,24 @@
 import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { map } from 'rxjs/operators';
+
+
+interface UserDocument {
+  role: string;
+  // Add other properties expected in the user document as needed
+}
+
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
-  constructor(private afAuth: AngularFireAuth, private router: Router) {}
-
+  constructor(
+    private afAuth: AngularFireAuth,
+    private firestore: AngularFirestore,
+    private router: Router) {}
 
   async sendVerificationEmail(email: string): Promise<void> {
     const user = await this.afAuth.currentUser;
@@ -19,20 +29,27 @@ export class AuthService {
     }
   }
 
-  
-  async login(email: string, password: string) {
+  async loginUser(email: string, password: string) {
     try {
-      await this.afAuth.signInWithEmailAndPassword(email, password);
-      this.router.navigate(['/form']);
+      const result = await this.afAuth.signInWithEmailAndPassword(email, password);
+      const uid = result.user?.uid;
+      if (uid) {
+        const role = await this.getUserRole(uid);
+        this.navigateBasedOnRole(role);
+      }
     } catch (error) {
       console.error('Login error', error);
     }
   }
 
-  async register(email: string, password: string) {
+  async registerUser(email: string, password: string, role: string = 'user') {
     try {
-      await this.afAuth.createUserWithEmailAndPassword(email, password);
-      this.router.navigate(['/form']);
+      const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
+      const uid = result.user?.uid;
+      if (uid) {
+        await this.firestore.collection('users').doc(uid).set({ role });
+        this.navigateBasedOnRole(role);
+      }
     } catch (error) {
       console.error('Registration error', error);
     }
@@ -41,7 +58,8 @@ export class AuthService {
   async logout() {
     try {
       await this.afAuth.signOut();
-      this.router.navigate(['/login']);
+      console.log('logged out');
+      this.router.navigate(['']);
     } catch (error) {
       console.error('Logout error', error);
     }
@@ -49,5 +67,30 @@ export class AuthService {
 
   getAuthState() {
     return this.afAuth.authState;
+  }
+
+  
+  private async getUserRole(uid: string): Promise<string> {
+    const doc = await this.firestore.collection('users').doc(uid).get().toPromise();
+    if (doc && doc.exists) { // Check if 'doc' is not undefined and exists
+      const userData = doc.data() as UserDocument; // Cast to UserDocument
+      return userData.role || 'user'; // Now TypeScript knows about the 'role' property
+    } else {
+      // Handle the case where 'doc' is undefined or the document does not exist
+      // For example, return a default role or throw an error
+      return 'user'; // Returning 'user' as a default role
+    }
+  }
+
+  private navigateBasedOnRole(role: string) {
+    switch (role) {
+      case 'admin':
+        this.router.navigate(['/download-form']);
+        break;
+      case 'user':
+      default:
+        this.router.navigate(['/form']);
+        break;
+    }
   }
 }

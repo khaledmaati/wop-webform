@@ -18,7 +18,7 @@ export class FormComponent {
   form: FormGroup;
 
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private fb: FormBuilder,
     private firestore: AngularFirestore,
     private router: Router
@@ -107,10 +107,5 @@ export class FormComponent {
     } else {
       alert('Please fill all required fields correctly.');
     }
-  }
-
-
-  logout() {
-    this.authService.logout();
   }
 }

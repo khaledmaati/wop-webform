@@ -19,6 +19,7 @@ export class FormRetrievalComponent {
         this.downloadXml();
       } else {
         console.log('No data found for tax ID:', this.taxId);
+        alert(`No data found for tax ID: ${this.taxId}`);
       }
     });
   }

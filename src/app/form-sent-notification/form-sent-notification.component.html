@@ -5,13 +5,15 @@
         <div class="alert alert-success" role="alert">
           <h4 class="alert-heading">Vielen Dank!</h4>
           <p>
-            Ihre Daten wurden erfolgreich gespeichert. Wir schätzen Ihr Vertrauen und werden Ihre Informationen vertraulich behandeln.
+            Ihre Daten wurden erfolgreich gespeichert. Wir schätzen Ihr
+            Vertrauen und werden Ihre Informationen vertraulich behandeln.
           </p>
           <hr />
-          <p class="mb-0">
-            Sie können dieses Fenster jetzt schließen.
-          </p>
+          <p class="mb-0">Sie können dieses Fenster jetzt schließen.</p>
         </div>
+        <button class="btn btn-primary" (click)="authService.logout()">
+          Abmelden
+        </button>
       </div>
     </div>
   </div>

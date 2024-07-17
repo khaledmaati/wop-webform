@@ -12,8 +12,8 @@ export class RegisterComponent {
 
   constructor(private authService: AuthService) {}
 
-  register() {
-    this.authService.register(this.email, this.password);
+  registerUser() {
+    this.authService.registerUser(this.email, this.password);
   }
 }
 
