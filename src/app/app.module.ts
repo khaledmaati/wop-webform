@@ -21,6 +21,7 @@ import { ListingComponent } from './listing/listing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormRetrievalComponent } from './form-retrieval/form-retrieval.component';
+import { DataTableComponent } from './data-table/data-table.component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { FormRetrievalComponent } from './form-retrieval/form-retrieval.componen
     ListingComponent,
     LoginComponent,
     RegisterComponent,
-    FormRetrievalComponent
+    FormRetrievalComponent,
+    DataTableComponent
   ],
 
   imports: [

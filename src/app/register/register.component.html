@@ -21,6 +21,11 @@
               <div *ngIf="emailField.errors?.['email']">Bitte geben Sie eine gültige E-Mail-Adresse ein.</div>
             </div>
           </div>
+          <!-- TaxID input -->
+          <div class="mb-3">
+            <label for="TaxID" class="form-label">Tax ID</label>
+            <input type="text" class="form-control" id="TaxID" placeholder="123456" [(ngModel)]="taxID" name="TaxID" required>
+          </div>
           <!-- Password input -->
           <div class="mb-3">
             <label for="registerPassword" class="form-label">Passwort</label>

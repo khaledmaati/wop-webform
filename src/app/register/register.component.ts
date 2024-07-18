@@ -9,11 +9,12 @@ import { AuthService } from '../auth.service';
 export class RegisterComponent {
   email!: string;
   password!: string;
+  taxID!: string;
 
   constructor(private authService: AuthService) {}
 
   registerUser() {
-    this.authService.registerUser(this.email, this.password);
+    this.authService.registerUser(this.email, this.password, 'user', this.taxID );
   }
 }
 

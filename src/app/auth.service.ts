@@ -3,9 +3,13 @@ import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
+
 
 interface UserDocument {
   role: string;
+  taxID: string; // Add taxID to the UserDocument interface
+
 }
 
 @Injectable({
@@ -44,15 +48,13 @@ export class AuthService {
     }
   }
 
-  async registerUser(email: string, password: string, role: string = 'user') {
+  async registerUser(email: string, password: string, role: string = 'user', taxID: string) {
     try {
-      const result = await this.afAuth.createUserWithEmailAndPassword(
-        email,
-        password
-      );
+      const result = await this.afAuth.createUserWithEmailAndPassword(email, password);
       const uid = result.user?.uid;
       if (uid) {
-        await this.firestore.collection('users').doc(uid).set({ role });
+        // Save role and taxID in the Firestore document
+        await this.firestore.collection('users').doc(uid).set({ role, taxID });
         this.navigateBasedOnRole(role);
       }
     } catch (error) {
@@ -93,6 +95,26 @@ export class AuthService {
     }
   }
 
+
+  public async getUserTaxID(uid: string): Promise<string> {
+    const doc = await this.firestore
+      .collection('users')
+      .doc(uid)
+      .get()
+      .toPromise();
+    if (doc && doc.exists) {
+      // Check if 'doc' is not undefined and exists
+      const userData = doc.data() as UserDocument; // Cast to UserDocument
+      return userData.taxID || 'user'; // Now TypeScript knows about the 'taxID' property
+    } else {
+      // Handle the case where 'doc' is undefined or the document does not exist
+      // For example, return a default role or throw an error
+      return 'user'; // Returning 'user' as a default role
+    }
+  }
+
+  
+
   private navigateBasedOnRole(role: string) {
     switch (role) {
       case 'admin':
@@ -100,7 +122,7 @@ export class AuthService {
         break;
       case 'user':
       default:
-        this.router.navigate(['/form']);
+        this.router.navigate(['/data-table']);
         break;
     }
   }

@@ -24,7 +24,7 @@ export class FormComponent {
     private router: Router
   ) {
     this.form = this.fb.group({
-      taxId: ['', Validators.required],
+      taxID: ['', Validators.required],
       identifikationsnummerEhegatte: ['', Validators.required],
       familienname: ['', Validators.required],
       vorname: ['', Validators.required],
