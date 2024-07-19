@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 declare var DataTable: any; // Assuming DataTable is globally available
 
 interface DocumentData {
+  uid: string;
   taxID: string;
   stadt: string;
   hausnummer: string;
@@ -47,6 +48,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
         this.dataSet = documentsSnapshot.docs.map(doc => {
           const data = doc.data() as DocumentData;
           return {
+            uid: doc.id,  // Assuming the document ID is used as the UID
             taxID: data.taxID,
             stadt: data.stadt,
             hausnummer: data.hausnummer
@@ -72,13 +74,14 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     new DataTable('#example', {
       data: this.dataSet,
       columns: [
+        { title: 'UID', data: 'uid' },
         { title: 'taxID', data: 'taxID' },
-        { title: 'stadt', data: 'stadt' },
-        { title: 'hausnummer', data: 'hausnummer' }
+        { title: 'Stadt', data: 'stadt' },
+        { title: 'Hausnummer', data: 'hausnummer' }
       ],
       rowCallback: (row: HTMLElement, data: DocumentData) => {
         row.addEventListener('click', () => {
-          this.router.navigate(['/form']);
+          this.router.navigate(['/form', data.uid]); // Pass the UID in the route
         });
       }
     });

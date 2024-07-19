@@ -2,7 +2,36 @@ import { Component } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../auth.service';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+
+interface DocumentData {
+  taxID: string;
+  identifikationsnummerEhegatte: string;
+  familienname: string;
+  vorname: string;
+  geburtsdatum: string;
+  partnerFamilienname?: string;
+  partnerVorname?: string;
+  partnerGeburtsdatum?: string;
+  strasse: string;
+  hausnummer: string;
+  stadt: string;
+  bundesland: string;
+  postleitzahl: string;
+  familienstand: string;
+  dynamicForms?: DynamicForm[];
+}
+
+interface DynamicForm {
+  vertragsnummer: string;
+  abschlussdatum: string;
+  bausparsumme: string;
+  bausparbeitrag: string;
+  hoechstbetrag: string;
+  vermoegenswirksameLeistungen: string;
+}
+
+
 
 @Component({
   selector: 'app-form',
@@ -16,12 +45,15 @@ export class FormComponent {
     'Bausparbeiträge, die vermögenswirksame Leistungen sind, werden vorrangig durch Gewährung einer Arbeitnehmer-Sparzulage gefördert...';
 
   form: FormGroup;
+  documentId: string | null = null;  // Variable to store document ID
+
 
   constructor(
     public authService: AuthService,
     private fb: FormBuilder,
     private firestore: AngularFirestore,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.form = this.fb.group({
       taxID: ['', Validators.required],
@@ -42,6 +74,14 @@ export class FormComponent {
     });
 
     this.addForm(); // Initialize with one form
+  }
+
+  ngOnInit(): void {
+    const uid = this.route.snapshot.paramMap.get('uid');
+    if (uid) {
+      this.fetchDocumentData(uid);
+      this.documentId = uid;
+    }
   }
 
   get dynamicForms() {
@@ -69,41 +109,93 @@ export class FormComponent {
     }
   }
 
+
+  private async fetchDocumentData(uid: string): Promise<void> {
+    try {
+      const docSnapshot = await this.firestore.collection('wohnungsbaupraemie').doc(uid).get().toPromise();
+      if (docSnapshot?.exists) {
+        const data = docSnapshot.data() as DocumentData;
+        if (data) {
+          this.form.patchValue({
+            taxID: data.taxID,
+            identifikationsnummerEhegatte: data.identifikationsnummerEhegatte,
+            familienname: data.familienname,
+            vorname: data.vorname,
+            geburtsdatum: data.geburtsdatum,
+            partnerFamilienname: data.partnerFamilienname,
+            partnerVorname: data.partnerVorname,
+            partnerGeburtsdatum: data.partnerGeburtsdatum,
+            strasse: data.strasse,
+            hausnummer: data.hausnummer,
+            stadt: data.stadt,
+            bundesland: data.bundesland,
+            postleitzahl: data.postleitzahl,
+            familienstand: data.familienstand,
+          });
+
+          const dynamicFormsArray = this.form.get('dynamicForms') as FormArray;
+          if (data.dynamicForms) {
+            data.dynamicForms.forEach((dynamicForm: DynamicForm) => {
+              const formGroup = this.fb.group({
+                vertragsnummer: [dynamicForm.vertragsnummer],
+                abschlussdatum: [dynamicForm.abschlussdatum],
+                bausparsumme: [dynamicForm.bausparsumme],
+                bausparbeitrag: [dynamicForm.bausparbeitrag],
+                hoechstbetrag: [dynamicForm.hoechstbetrag],
+                vermoegenswirksameLeistungen: [dynamicForm.vermoegenswirksameLeistungen],
+              });
+              dynamicFormsArray.push(formGroup);
+            });
+          }
+        }
+      } else {
+        console.error('No document found with the specified UID');
+      }
+    } catch (error) {
+      console.error('Error fetching document data:', error);
+    }
+  }
+
+
   onSubmit(): void {
     if (this.form.valid) {
-      this.firestore
-        .collection('wohnungsbaupraemie')
-        .add(this.form.value)
-        .then((docRef) => {
-          console.log('Main form data saved to Firestore', docRef.id);
+      if (this.documentId) {
+        // Update the existing document
+        this.firestore.collection('wohnungsbaupraemie').doc(this.documentId).update(this.form.value)
+          .then(() => {
+            console.log('Main form data updated in Firestore');
 
-          const dynamicFormsPromises = this.dynamicForms.controls.map(
-            (form, index) =>
-              this.firestore
-                .collection('wohnungsbaupraemie')
-                .doc(docRef.id)
-                .collection('dynamicForms')
-                .add(form.value)
-                .then(() => {
-                  console.log(`Dynamic form ${index + 1} saved successfully`);
-                })
-                .catch((error) => {
-                  console.error(
-                    `Error saving dynamic form ${index + 1}`,
-                    error
-                  );
-                })
-          );
+            const dynamicFormsPromises = this.dynamicForms.controls.map(
+              (form, index) =>
+                this.firestore
+                  .collection('wohnungsbaupraemie')
+                  .doc(this.documentId!)
+                  .collection('dynamicForms')
+                  .doc(index.toString())
+                  .set(form.value) // Use .set() to update dynamic forms
+                  .then(() => {
+                    console.log(`Dynamic form ${index + 1} updated successfully`);
+                  })
+                  .catch((error) => {
+                    console.error(
+                      `Error updating dynamic form ${index + 1}`,
+                      error
+                    );
+                  })
+            );
 
-          return Promise.all(dynamicFormsPromises);
-        })
-        .then(() => {
-          console.log('All data saved to Firestore');
-          this.router.navigate(['/form-sent-notification']);
-        })
-        .catch((error) => {
-          console.error('Error saving main form data to Firestore', error);
-        });
+            return Promise.all(dynamicFormsPromises);
+          })
+          .then(() => {
+            console.log('All data updated in Firestore');
+            this.router.navigate(['/form-sent-notification']);
+          })
+          .catch((error) => {
+            console.error('Error updating main form data in Firestore', error);
+          });
+      } else {
+        alert('No document ID found.');
+      }
     } else {
       alert('Please fill all required fields correctly.');
     }

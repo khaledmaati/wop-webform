@@ -78,6 +78,20 @@ export class AuthService {
     return this.afAuth.authState;
   }
 
+
+  // Method to get the current user's UID
+  async getCurrentUserUID(): Promise<string | null> {
+    try {
+      const user = await this.afAuth.currentUser;
+      return user ? user.uid : null;
+    } catch (error) {
+      console.error('Error fetching current user UID:', error);
+      return null; // Handle error, maybe throw or return null
+    }
+  }
+  
+
+
   private async getUserRole(uid: string): Promise<string> {
     const doc = await this.firestore
       .collection('users')
@@ -126,4 +140,18 @@ export class AuthService {
         break;
     }
   }
+
+
+    // Method to save data to a specific collection
+    saveData(wohnungsbaupraemie: string, data: any): Observable<void> {
+      const documentId = this.firestore.createId(); // Generate a unique ID for the document
+      return new Observable((observer) => {
+        this.firestore.collection(wohnungsbaupraemie).doc(documentId).set(data).then(() => {
+          observer.next();
+          observer.complete();
+        }).catch((error) => {
+          observer.error(error);
+        });
+      });
+    }
 }

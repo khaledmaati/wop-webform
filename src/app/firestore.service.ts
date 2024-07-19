@@ -9,7 +9,7 @@ export class FirestoreService {
 
   constructor(private firestore: AngularFirestore) { }
 
-  getDataByTaxId(taxId: string) {
-    return this.firestore.collection('wohnungsbaupraemie', ref => ref.where('taxId', '==', taxId)).valueChanges();
+  getDataByTaxID(taxID: string) {
+    return this.firestore.collection('wohnungsbaupraemie', ref => ref.where('taxID', '==', taxID)).valueChanges();
   }
 }

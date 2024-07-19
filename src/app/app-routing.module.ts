@@ -13,7 +13,8 @@ import { DataTableComponent } from './data-table/data-table.component';
 const routes: Routes = [
   { path: '', pathMatch: 'full', component: LoginComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'form', component: FormComponent, canActivate: [AuthGuard] }, // Protect form page with AuthGuard
+  { path: 'form', component: FormComponent, canActivate: [AuthGuard] },  // For navigating without uid
+  { path: 'form/:uid', component: FormComponent, canActivate: [AuthGuard] },  // For navigating with uid
   { path: 'register', component: RegisterComponent },
   { path: 'form-sent-notification', component: FormSentNotificationComponent, canActivate: [AuthGuard] },
   { path: 'download-form', component:  FormRetrievalComponent, canActivate: [AuthGuard] },
