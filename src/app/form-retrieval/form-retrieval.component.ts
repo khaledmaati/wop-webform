@@ -3,7 +3,7 @@ import { FirestoreService } from '../firestore.service';
 import { AuthService } from '../auth.service';
 import { saveAs } from 'file-saver-es';
 import { parseString } from 'xml2js';
-import { DocumentData } from '../firestore.service';
+import { DocumentData, DynamicForm } from '../firestore.service';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @Component({
@@ -13,7 +13,8 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 })
 export class FormRetrievalComponent {
   taxID!: string;
-  data: any[] = [];
+  UID!: any;
+  data: any;
   private selectedFile: File | null = null;
 
   @ViewChild('xmlFileInput') xmlFileInput!: ElementRef<HTMLInputElement>;
@@ -26,10 +27,10 @@ export class FormRetrievalComponent {
 
   fetchData(): void {
     this.firestoreService.getDataByTaxID(this.taxID).subscribe(
-      (results) => {
-        if (results.length > 0) {
-          this.data = results; // Handle multiple documents
-          this.downloadAllXml();
+      (result) => {
+        if (result.length > 0) {
+          this.data = result[0]; // Assuming there's only one document per taxID
+          this.downloadXml();
         } else {
           console.log('No data found for tax ID:', this.taxID);
           alert(`No data found for tax ID: ${this.taxID}`);
@@ -77,12 +78,10 @@ export class FormRetrievalComponent {
     return xml;
   }
 
-  downloadAllXml(): void {
-    this.data.forEach((item: any, index: number) => {
-      const xml = this.jsonToXml(item);
-      const blob = new Blob([xml], { type: 'application/xml' });
-      saveAs(blob, `data_${index + 1}.xml`); // Save each file with an index
-    });
+  downloadXml(): void {
+    const xml = this.jsonToXml(this.data);
+    const blob = new Blob([xml], { type: 'application/xml' });
+    saveAs(blob, 'data.xml'); // Use file-saver's saveAs function
   }
 
   onFileSelected(event: Event): void {
