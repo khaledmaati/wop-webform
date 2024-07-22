@@ -5,7 +5,7 @@
       Logout
     </button>
   </div>
-  
+
   <!-- Form and File Input -->
   <div class="row justify-content-center align-items-center h-100">
     <div class="col-md-8 col-lg-6 col-xl-4">
@@ -21,6 +21,7 @@
             [(ngModel)]="taxID"
             placeholder="Enter Tax ID"
             required
+            aria-required="true"
             #taxIDInput="ngModel"
           />
           <div *ngIf="taxIDInput.invalid && (taxIDInput.dirty || taxIDInput.touched)" class="text-danger mt-2">
@@ -33,20 +34,21 @@
       </form>
 
       <!-- File Input and Upload Button -->
-      <div class="mt-3">
+      <div class="mt-4">
         <label for="xmlFile" class="form-label">Upload XML File:</label>
         <div class="input-group">
           <input
             type="file"
             id="xmlFile"
-            (change)="onFileChange($event)"
+            (change)="onFileSelected($event)"
             accept=".xml"
             class="form-control"
+            #fileInput
           />
           <button
             class="btn btn-secondary"
             type="button"
-            (click)="triggerFileUpload()"
+            (click)="uploadFile()"
           >
             Upload
           </button>

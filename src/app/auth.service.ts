@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
-import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 
@@ -21,15 +20,6 @@ export class AuthService {
     private firestore: AngularFirestore,
     private router: Router
   ) {}
-
-  async sendVerificationEmail(email: string): Promise<void> {
-    const user = await this.afAuth.currentUser;
-    if (user) {
-      return user.sendEmailVerification();
-    } else {
-      throw new Error('User not logged in');
-    }
-  }
 
   async loginUser(email: string, password: string) {
     try {
@@ -89,8 +79,6 @@ export class AuthService {
       return null; // Handle error, maybe throw or return null
     }
   }
-  
-
 
   private async getUserRole(uid: string): Promise<string> {
     const doc = await this.firestore
@@ -98,17 +86,15 @@ export class AuthService {
       .doc(uid)
       .get()
       .toPromise();
+
     if (doc && doc.exists) {
-      // Check if 'doc' is not undefined and exists
-      const userData = doc.data() as UserDocument; // Cast to UserDocument
-      return userData.role || 'user'; // Now TypeScript knows about the 'role' property
+      const userData = doc.data() as UserDocument;
+      return userData.role || 'N/A'; // Use a distinct default value
     } else {
-      // Handle the case where 'doc' is undefined or the document does not exist
-      // For example, return a default role or throw an error
-      return 'user'; // Returning 'user' as a default role
+      console.error('User document does not exist or is undefined');
+      return 'N/A'; // Return a more distinct default role
     }
   }
-
 
   public async getUserTaxID(uid: string): Promise<string> {
     const doc = await this.firestore
@@ -116,17 +102,15 @@ export class AuthService {
       .doc(uid)
       .get()
       .toPromise();
+
     if (doc && doc.exists) {
-      // Check if 'doc' is not undefined and exists
-      const userData = doc.data() as UserDocument; // Cast to UserDocument
-      return userData.taxID || 'user'; // Now TypeScript knows about the 'taxID' property
+      const userData = doc.data() as UserDocument;
+      return userData.taxID || 'N/A'; // Use a distinct default value
     } else {
-      // Handle the case where 'doc' is undefined or the document does not exist
-      // For example, return a default role or throw an error
-      return 'user'; // Returning 'user' as a default role
+      console.error('User document does not exist or is undefined');
+      return 'N/A'; // Return a more distinct default value
     }
   }
-
   
 
   private navigateBasedOnRole(role: string) {

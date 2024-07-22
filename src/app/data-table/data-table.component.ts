@@ -4,13 +4,13 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
-declare var DataTable: any; // Assuming DataTable is globally available
+declare var $: any; // Assuming jQuery is used for DataTables
 
 interface DocumentData {
   uid: string;
-  taxID: string;
-  stadt: string;
-  hausnummer: string;
+  bausparkasse: string;
+  jahr: string;
+  status: string;
 }
 
 @Component({
@@ -18,7 +18,7 @@ interface DocumentData {
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css']
 })
-export class DataTableComponent implements OnInit, AfterViewInit {
+export class DataTableComponent implements OnInit {
   dataSet: DocumentData[] = [];
 
   constructor(
@@ -34,7 +34,7 @@ export class DataTableComponent implements OnInit, AfterViewInit {
       if (user) {
         const taxID = await this.authService.getUserTaxID(user.uid);
         await this.populateDataSet(taxID);
-        this.initializeDataTable();
+        this.initializeDataTable(); // Initialize DataTable after data is populated
       }
     } catch (error) {
       console.error('Error fetching user data', error);
@@ -48,10 +48,10 @@ export class DataTableComponent implements OnInit, AfterViewInit {
         this.dataSet = documentsSnapshot.docs.map(doc => {
           const data = doc.data() as DocumentData;
           return {
-            uid: doc.id,  // Assuming the document ID is used as the UID
-            taxID: data.taxID,
-            stadt: data.stadt,
-            hausnummer: data.hausnummer
+            uid: doc.id, // Attach the document ID as UID
+            bausparkasse: data.bausparkasse,
+            jahr: data.jahr,
+            status: data.status
           };
         });
       } else {
@@ -64,26 +64,25 @@ export class DataTableComponent implements OnInit, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
-    if (this.dataSet.length > 0) {
-      this.initializeDataTable();
-    }
-  }
-
   private initializeDataTable() {
-    new DataTable('#example', {
-      data: this.dataSet,
-      columns: [
-        { title: 'UID', data: 'uid' },
-        { title: 'taxID', data: 'taxID' },
-        { title: 'Stadt', data: 'stadt' },
-        { title: 'Hausnummer', data: 'hausnummer' }
-      ],
-      rowCallback: (row: HTMLElement, data: DocumentData) => {
-        row.addEventListener('click', () => {
-          this.router.navigate(['/form', data.uid]); // Pass the UID in the route
-        });
-      }
-    });
+    setTimeout(() => { // Ensure the DOM is updated before initializing DataTable
+      $('#example').DataTable({
+        data: this.dataSet,
+        columns: [
+          { title: 'Bausparkasse', data: 'bausparkasse' },
+          { title: 'Jahr', data: 'jahr' },
+          { title: 'Status', data: 'status' }
+        ]
+      });
+
+      // Add row click event
+      $('#example tbody').on('click', 'tr', (event: Event) => {
+        const target = $(event.currentTarget);
+        const rowData = $('#example').DataTable().row(target).data() as DocumentData;
+        if (rowData) {
+          this.router.navigate(['/form', rowData.uid]); // Pass the UID in the route
+        }
+      });
+    }, 0);
   }
 }

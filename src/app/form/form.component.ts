@@ -3,34 +3,7 @@ import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { AuthService } from '../auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-
-interface DocumentData {
-  taxID: string;
-  identifikationsnummerEhegatte: string;
-  familienname: string;
-  vorname: string;
-  geburtsdatum: string;
-  partnerFamilienname?: string;
-  partnerVorname?: string;
-  partnerGeburtsdatum?: string;
-  strasse: string;
-  hausnummer: string;
-  stadt: string;
-  bundesland: string;
-  postleitzahl: string;
-  familienstand: string;
-  dynamicForms?: DynamicForm[];
-}
-
-interface DynamicForm {
-  vertragsnummer: string;
-  abschlussdatum: string;
-  bausparsumme: string;
-  bausparbeitrag: string;
-  hoechstbetrag: string;
-  vermoegenswirksameLeistungen: string;
-}
-
+import { DocumentData, DynamicForm } from '../firestore.service';
 
 
 @Component({
