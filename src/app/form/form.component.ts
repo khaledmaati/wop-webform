@@ -133,11 +133,14 @@ export class FormComponent {
   onSubmit(): void {
     if (this.form.valid) {
       if (this.documentId) {
+        // Prepare the main form data with the 'status' field
+        const formData = { ...this.form.value, status: 'submitted' };
+  
         // Update the existing document
-        this.firestore.collection('wohnungsbaupraemie').doc(this.documentId).update(this.form.value)
+        this.firestore.collection('wohnungsbaupraemie').doc(this.documentId).update(formData)
           .then(() => {
             console.log('Main form data updated in Firestore');
-
+  
             const dynamicFormsPromises = this.dynamicForms.controls.map(
               (form, index) =>
                 this.firestore
@@ -156,7 +159,7 @@ export class FormComponent {
                     );
                   })
             );
-
+  
             return Promise.all(dynamicFormsPromises);
           })
           .then(() => {
@@ -173,4 +176,4 @@ export class FormComponent {
       alert('Please fill all required fields correctly.');
     }
   }
-}
+  }
