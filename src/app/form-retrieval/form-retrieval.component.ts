@@ -1,10 +1,9 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
-import { FirestoreService } from '../firestore.service';
-import { AuthService } from '../auth.service';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { saveAs } from 'file-saver-es';
 import { parseString } from 'xml2js';
-import { DocumentData, DynamicForm } from '../firestore.service';
-import { AngularFirestore } from '@angular/fire/compat/firestore';
+import { AuthService } from '../auth.service';
+import { DocumentData, FirestoreService } from '../firestore.service';
 
 @Component({
   selector: 'app-form-retrieval',

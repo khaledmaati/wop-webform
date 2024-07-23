@@ -17,24 +17,24 @@ import { environment } from '../environments/environment';
 import { RouterModule } from '@angular/router';
 import { AuthGuard } from './auth.guard';
 import { FormComponent } from './form/form.component';
-import { ListingComponent } from './listing/listing.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormRetrievalComponent } from './form-retrieval/form-retrieval.component';
 import { DataTableComponent } from './data-table/data-table.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { SubmitConfirmationComponent } from './submit-confirmation/submit-confirmation.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     FormComponent,
-    ListingComponent,
     LoginComponent,
     RegisterComponent,
     FormRetrievalComponent,
     DataTableComponent,
-    NavbarComponent
+    NavbarComponent,
+    SubmitConfirmationComponent
   ],
 
   imports: [

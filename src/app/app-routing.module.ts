@@ -5,9 +5,9 @@ import { AuthGuard } from './auth.guard';
 import { FormComponent } from './form/form.component';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
-import { FormSentNotificationComponent } from './form-sent-notification/form-sent-notification.component';
 import { FormRetrievalComponent } from './form-retrieval/form-retrieval.component';
 import { DataTableComponent } from './data-table/data-table.component';
+import { SubmitConfirmationComponent } from './submit-confirmation/submit-confirmation.component';
 
 // Define routes
 const routes: Routes = [
@@ -16,9 +16,9 @@ const routes: Routes = [
   { path: 'form', component: FormComponent, canActivate: [AuthGuard] },  // For navigating without uid
   { path: 'form/:uid/:jahr', component: FormComponent, canActivate: [AuthGuard] },  // For navigating with uid and year
   { path: 'register', component: RegisterComponent },
-  { path: 'form-sent-notification', component: FormSentNotificationComponent, canActivate: [AuthGuard] },
+  { path: 'form-sent-notification', component: SubmitConfirmationComponent, canActivate: [AuthGuard] },
   { path: 'download-form', component:  FormRetrievalComponent, canActivate: [AuthGuard] },
-  { path: 'data-table', component:  DataTableComponent}
+  { path: 'data-table', component:  DataTableComponent, canActivate: [AuthGuard] }
 ];
 
 // Use consistent formatting for decorators
