@@ -19,7 +19,7 @@ export class FormComponent {
 
   form: FormGroup;
   documentId: string | null = null;  // Variable to store document ID
-
+  jahr!: number // Variable to store year
 
   constructor(
     public authService: AuthService,
@@ -89,7 +89,9 @@ export class FormComponent {
       if (docSnapshot?.exists) {
         const data = docSnapshot.data() as DocumentData;
         if (data) {
+          this.jahr = parseInt(data.jahr, 10);
           this.form.patchValue({
+            jahr: data.jahr,
             taxID: data.taxID,
             identifikationsnummerEhegatte: data.identifikationsnummerEhegatte,
             familienname: data.familienname,
@@ -128,7 +130,6 @@ export class FormComponent {
       console.error('Error fetching document data:', error);
     }
   }
-
 
   onSubmit(): void {
     if (this.form.valid) {

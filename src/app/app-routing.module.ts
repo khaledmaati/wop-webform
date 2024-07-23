@@ -14,7 +14,7 @@ const routes: Routes = [
   { path: '', pathMatch: 'full', component: LoginComponent },
   { path: 'login', component: LoginComponent },
   { path: 'form', component: FormComponent, canActivate: [AuthGuard] },  // For navigating without uid
-  { path: 'form/:uid', component: FormComponent, canActivate: [AuthGuard] },  // For navigating with uid
+  { path: 'form/:uid/:jahr', component: FormComponent, canActivate: [AuthGuard] },  // For navigating with uid and year
   { path: 'register', component: RegisterComponent },
   { path: 'form-sent-notification', component: FormSentNotificationComponent, canActivate: [AuthGuard] },
   { path: 'download-form', component:  FormRetrievalComponent, canActivate: [AuthGuard] },

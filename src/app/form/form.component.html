@@ -1,12 +1,10 @@
+<app-navbar></app-navbar>
 <div class="container p-5">
-  <div class="text-end mb-4">
-    <button class="btn btn-primary" (click)="authService.logout($event)">Abmelden</button>
-  </div>
   <div>
-    <h1 class="mb-3">Antrag auf Wohnungsbauprämie 2023</h1>
+    <h1 class="mb-3">Antrag auf Wohnungsbauprämie {{ jahr }}</h1>
     <h2 class="mb-2">für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2>
     <p class="mb-4">
-      Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember 2026
+      Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember {{ jahr + 2 }}
     </p>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <!-- Identifikationsnummer Section -->

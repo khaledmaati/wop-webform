@@ -80,7 +80,7 @@ export class DataTableComponent implements OnInit {
         const target = $(event.currentTarget);
         const rowData = $('#example').DataTable().row(target).data() as DocumentData;
         if (rowData) {
-          this.router.navigate(['/form', rowData.uid]); // Pass the UID in the route
+          this.router.navigate(['/form', rowData.uid, rowData.jahr]); // Pass the UID and year in the route
         }
       });
     }, 0);

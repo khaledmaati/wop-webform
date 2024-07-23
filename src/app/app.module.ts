@@ -22,6 +22,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { FormRetrievalComponent } from './form-retrieval/form-retrieval.component';
 import { DataTableComponent } from './data-table/data-table.component';
+import { NavbarComponent } from './navbar/navbar.component';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { DataTableComponent } from './data-table/data-table.component';
     LoginComponent,
     RegisterComponent,
     FormRetrievalComponent,
-    DataTableComponent
+    DataTableComponent,
+    NavbarComponent
   ],
 
   imports: [
