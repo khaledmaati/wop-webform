@@ -14,7 +14,7 @@ export class FormRetrievalComponent {
   taxID!: string;
   UID!: any;
   data: any;
-  private selectedFile: File | null = null;
+  private selectedFiles: File[] = [];
 
   @ViewChild('xmlFileInput') xmlFileInput!: ElementRef<HTMLInputElement>;
 
@@ -28,7 +28,7 @@ export class FormRetrievalComponent {
     this.firestoreService.getDataByTaxID(this.taxID).subscribe(
       (result) => {
         if (result.length > 0) {
-          this.data = result[0]; // Assuming there's only one document per taxID
+          this.data = result; // Store all documents
           this.downloadXml();
         } else {
           console.log('No data found for tax ID:', this.taxID);
@@ -52,20 +52,17 @@ export class FormRetrievalComponent {
           const value = obj[key];
           if (typeof value === 'object') {
             if (Array.isArray(value)) {
-              // Handle arrays by repeating the key for each item
               value.forEach((item) => {
                 xml += `${indent}<${key}>\n`;
                 convert(item, indent + '  ');
                 xml += `${indent}</${key}>\n`;
               });
             } else {
-              // Handle nested objects
               xml += `${indent}<${key}>\n`;
               convert(value, indent + '  ');
               xml += `${indent}</${key}>\n`;
             }
           } else {
-            // Handle base case
             xml += `${indent}<${key}>${value}</${key}>\n`;
           }
         }
@@ -78,28 +75,38 @@ export class FormRetrievalComponent {
   }
 
   downloadXml(): void {
-    const xml = this.jsonToXml(this.data);
-    const blob = new Blob([xml], { type: 'application/xml' });
-    saveAs(blob, 'data.xml'); // Use file-saver's saveAs function
-  }
-
-  onFileSelected(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files?.length) {
-      this.selectedFile = input.files[0];
+    if (Array.isArray(this.data)) {
+      this.data.forEach((doc, index) => {
+        const xml = this.jsonToXml(doc, 'document');
+        const blob = new Blob([xml], { type: 'application/xml' });
+        saveAs(blob, `data_${index + 1}.xml`); // Save each document as a separate XML file
+      });
+    } else {
+      const xml = this.jsonToXml(this.data);
+      const blob = new Blob([xml], { type: 'application/xml' });
+      saveAs(blob, 'data.xml');
     }
   }
 
-  uploadFile(): void {
-    if (this.selectedFile) {
-      const reader = new FileReader();
-      reader.onload = (e) => {
-        const xml = e.target?.result as string;
-        this.parseXmlAndSaveToFirestore(xml);
-      };
-      reader.readAsText(this.selectedFile);
+  onFilesSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files) {
+      this.selectedFiles = Array.from(input.files);
+    }
+  }
+
+  uploadFiles(): void {
+    if (this.selectedFiles.length > 0) {
+      this.selectedFiles.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+          const xml = e.target?.result as string;
+          this.parseXmlAndSaveToFirestore(xml);
+        };
+        reader.readAsText(file);
+      });
     } else {
-      alert('Please select a file first.');
+      alert('Please select files first.');
     }
   }
 
@@ -124,7 +131,6 @@ export class FormRetrievalComponent {
   
     let transformedDynamicForms: any[] = [];
   
-    // Check if dynamicForms is an array or an object
     if (Array.isArray(dynamicForms)) {
       transformedDynamicForms = dynamicForms.map((form: any) => ({
         vertragsnummer: form.vertragsnummer ?? '',
@@ -135,7 +141,6 @@ export class FormRetrievalComponent {
         vermoegenswirksameLeistungen: form.vermoegenswirksameLeistungen ?? '',
       }));
     } else if (dynamicForms && typeof dynamicForms === 'object' && dynamicForms.form) {
-      // If dynamicForms is an object containing a single form
       transformedDynamicForms = [{
         vertragsnummer: dynamicForms.form.vertragsnummer ?? '',
         abschlussdatum: dynamicForms.form.abschlussdatum ?? '',
@@ -171,7 +176,7 @@ export class FormRetrievalComponent {
   
     return documentData;
   }
-      
+
   saveDataToFirestore(data: DocumentData): void {
     this.firestore.collection('wohnungsbaupraemie').add(data).then(() => {
       console.log('Data saved to Firestore successfully');

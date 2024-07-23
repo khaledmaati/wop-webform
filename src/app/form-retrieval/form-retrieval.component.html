@@ -34,7 +34,7 @@
           <input
             type="file"
             id="xmlFile"
-            (change)="onFileSelected($event)"
+            (change)="onFilesSelected($event)"
             accept=".xml"
             class="form-control"
             #fileInput
@@ -42,11 +42,12 @@
           <button
             class="btn btn-secondary"
             type="button"
-            (click)="uploadFile()"
+            (click)="uploadFiles()"
           >
             Upload
           </button>
         </div>
       </div>
     </div>
+  </div>
 </div>
