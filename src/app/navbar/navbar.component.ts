@@ -1,7 +1,7 @@
-import { Component, input } from '@angular/core';
+import { Component } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { StylesService } from '../styles.service';
 import { FormComponent } from '../form/form.component';
+import { StylesService } from '../styles.service';
 
 
 @Component({

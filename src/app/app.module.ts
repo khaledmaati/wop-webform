@@ -23,6 +23,7 @@ import { FormRetrievalComponent } from './form-retrieval/form-retrieval.componen
 import { DataTableComponent } from './data-table/data-table.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubmitConfirmationComponent } from './submit-confirmation/submit-confirmation.component';
+import { NavbarWithoutLogoComponent } from './navbar-without-logo/navbar-without-logo.component';
 
 @NgModule({
   declarations: [
@@ -33,7 +34,8 @@ import { SubmitConfirmationComponent } from './submit-confirmation/submit-confir
     FormRetrievalComponent,
     DataTableComponent,
     NavbarComponent,
-    SubmitConfirmationComponent
+    SubmitConfirmationComponent,
+    NavbarWithoutLogoComponent
   ],
 
   imports: [
