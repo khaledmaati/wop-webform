@@ -1,5 +1,5 @@
 <app-navbar></app-navbar>
-<div class="container p-5">
+<div [ngClass]="stylesService.getClass(bausparkasse)" class="container p-5">
   <div>
     <h1 class="mb-3">Antrag auf Wohnungsbauprämie {{ jahr }}</h1>
     <h2 class="mb-2">für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2>
@@ -306,7 +306,7 @@
                   />
                 </div>
               </div>
-
+              <!--
               <div class="col-auto align-self-end">
                 <button
                   type="button"
@@ -323,6 +323,8 @@
                   Vertrag hinzufügen
                 </button>
               </div>
+
+              -->
             </div>
           </fieldset>
         </div>

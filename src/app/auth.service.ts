@@ -8,6 +8,7 @@ import { Observable } from 'rxjs';
 interface UserDocument {
   role: string;
   taxID: string; // Add taxID to the UserDocument interface
+  bausparkasse: string;
 
 }
 
@@ -95,6 +96,30 @@ export class AuthService {
       return 'N/A'; // Return a more distinct default role
     }
   }
+
+  async getSuperUserSparkasse(uid: string): Promise<string> {
+    try {
+      // Fetch the document snapshot
+      const doc = await this.firestore
+        .collection('users')
+        .doc(uid)
+        .get()
+        .toPromise();
+  
+      // Check if the document exists and is not undefined
+      if (doc && doc.exists) {
+        const userData = doc.data() as UserDocument;
+        return userData.bausparkasse || 'N/A'; // Return 'N/A' if bausparkasse is undefined
+      } else {
+        console.error('User document does not exist.');
+        return 'N/A'; // Return 'N/A' or another distinct default value
+      }
+    } catch (error) {
+      console.error('Error fetching user document:', error);
+      return 'N/A'; // Return 'N/A' in case of an error
+    }
+  }
+    
 
   public async getUserTaxID(uid: string): Promise<string> {
     const doc = await this.firestore

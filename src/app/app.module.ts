@@ -24,7 +24,6 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubmitConfirmationComponent } from './submit-confirmation/submit-confirmation.component';
 
-
 @NgModule({
   declarations: [
     AppComponent,

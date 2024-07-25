@@ -1,4 +1,4 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, ViewChild, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { saveAs } from 'file-saver-es';
 import { parseString } from 'xml2js';
@@ -10,11 +10,12 @@ import { DocumentData, FirestoreService } from '../firestore.service';
   templateUrl: './form-retrieval.component.html',
   styleUrls: ['./form-retrieval.component.css'],
 })
-export class FormRetrievalComponent {
+export class FormRetrievalComponent implements OnInit {
   taxID!: string;
-  UID!: any;
   data: any;
-  private selectedFiles: File[] = [];
+  selectedFiles: File[] = [];
+  uid: string | null = null;
+  superUserSparkasse!: string;
 
   @ViewChild('xmlFileInput') xmlFileInput!: ElementRef<HTMLInputElement>;
 
@@ -23,6 +24,20 @@ export class FormRetrievalComponent {
     public authService: AuthService,
     private firestore: AngularFirestore
   ) {}
+
+  async ngOnInit(): Promise<void> {
+    try {
+      this.uid = await this.authService.getCurrentUserUID();
+      if (this.uid) {
+        this.superUserSparkasse = await this.authService.getSuperUserSparkasse(this.uid);
+      } else {
+        throw new Error('User ID is null');
+      }
+    } catch (error) {
+      console.error('Error fetching user information:', error);
+      alert('Error fetching user information.');
+    }
+  }
 
   fetchData(): void {
     this.firestoreService.getDataByTaxID(this.taxID).subscribe(
@@ -40,6 +55,18 @@ export class FormRetrievalComponent {
         alert('Error fetching data.');
       }
     );
+  }
+
+  downloadXml(): void {
+    if (Array.isArray(this.data)) {
+      this.data.forEach((doc, index) => {
+        if (doc.bausparkasse === this.superUserSparkasse) {
+          const xml = this.jsonToXml(doc, 'data');
+          const blob = new Blob([xml], { type: 'application/xml' });
+          saveAs(blob, `data_${index + 1}.xml`); // Save each document as a separate XML file
+        }
+      });
+    }
   }
 
   jsonToXml(json: any, rootElement: string = 'data'): string {
@@ -72,20 +99,6 @@ export class FormRetrievalComponent {
     convert(json, '  ');
     xml += `</${rootElement}>`;
     return xml;
-  }
-
-  downloadXml(): void {
-    if (Array.isArray(this.data)) {
-      this.data.forEach((doc, index) => {
-        const xml = this.jsonToXml(doc, 'document');
-        const blob = new Blob([xml], { type: 'application/xml' });
-        saveAs(blob, `data_${index + 1}.xml`); // Save each document as a separate XML file
-      });
-    } else {
-      const xml = this.jsonToXml(this.data);
-      const blob = new Blob([xml], { type: 'application/xml' });
-      saveAs(blob, 'data.xml');
-    }
   }
 
   onFilesSelected(event: Event): void {
@@ -185,5 +198,39 @@ export class FormRetrievalComponent {
       console.error('Error saving data to Firestore:', error);
       alert('Error saving data to Firestore.');
     });
+  }
+
+  // Drag and drop handling
+  onDrop(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    const files = event.dataTransfer?.files;
+    if (files) {
+      this.selectedFiles = Array.from(files);
+    }
+    this.updateDropZone(false);
+  }
+
+  onDragOver(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.updateDropZone(true);
+  }
+
+  onDragLeave(event: DragEvent): void {
+    event.preventDefault();
+    event.stopPropagation();
+    this.updateDropZone(false);
+  }
+
+  private updateDropZone(isDragging: boolean): void {
+    const dropZone = document.querySelector('.drop-zone') as HTMLElement;
+    if (dropZone) {
+      if (isDragging) {
+        dropZone.classList.add('dragover');
+      } else {
+        dropZone.classList.remove('dragover');
+      }
+    }
   }
 }

@@ -1,0 +1,9 @@
+/* form-retrieval.component.css */
+.drop-zone {
+  cursor: pointer;
+}
+
+.drop-zone.dragover {
+  background-color: rgba(0, 123, 255, 0.1); /* Light blue background when dragging over */
+  border-color: #007bff; /* Blue border color when dragging over */
+}

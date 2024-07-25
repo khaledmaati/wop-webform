@@ -1,4 +1,3 @@
-<app-navbar></app-navbar>
 <div class="container p-5">
   <!-- Form and File Input -->
   <div class="row justify-content-center align-items-center h-100">
@@ -18,36 +17,46 @@
             aria-required="true"
             #taxIDInput="ngModel"
           />
-          <div *ngIf="taxIDInput.invalid && (taxIDInput.dirty || taxIDInput.touched)" class="text-danger mt-2">
-            <div *ngIf="taxIDInput.errors?.['required']">Tax ID is required.</div>
+          <div
+            *ngIf="
+              taxIDInput.invalid && (taxIDInput.dirty || taxIDInput.touched)
+            "
+            class="text-danger mt-2"
+          >
+            <div *ngIf="taxIDInput.errors?.['required']">
+              Tax ID is required.
+            </div>
           </div>
         </div>
         <button type="submit" class="btn btn-primary" [disabled]="!form.valid">
           Download XML
         </button>
       </form>
-
-      <!-- File Input and Upload Button -->
-      <div class="mt-4">
-        <label for="xmlFile" class="form-label">Upload XML File:</label>
-        <div class="input-group">
-          <input
-            type="file"
-            id="xmlFile"
-            (change)="onFilesSelected($event)"
-            accept=".xml"
-            class="form-control"
-            #fileInput
-          />
-          <button
-            class="btn btn-secondary"
-            type="button"
-            (click)="uploadFiles()"
-          >
-            Upload
-          </button>
-        </div>
-      </div>
     </div>
+  </div>
+  <!-- File Input and Upload Button -->
+  <!-- Drag and Drop -->
+  <div class="container mt-4">
+    <div
+      class="drop-zone border border-dashed border-primary rounded p-4 text-center"
+      (drop)="onDrop($event)"
+      (dragover)="onDragOver($event)"
+      (dragleave)="onDragLeave($event)"
+    >
+      <p>Drag and drop files here, or click to select files.</p>
+      <input
+        #xmlFileInput
+        type="file"
+        multiple
+        (change)="onFilesSelected($event)"
+        style="display: none"
+      />
+      <button class="btn btn-primary mt-2" (click)="xmlFileInput.click()">
+        Select Files
+      </button>
+    </div>
+    <button class="btn btn-success mt-3" (click)="uploadFiles()">
+      Upload Files
+    </button>
   </div>
 </div>
