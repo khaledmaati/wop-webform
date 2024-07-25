@@ -23,6 +23,11 @@ export interface DocumentData {
   postleitzahl: string;
   familienstand: string;
   dynamicForms: DynamicForm[];
+  noOtherHousingBonus: boolean;
+  partialHousingBonus: boolean;
+  consentAsSpouse: boolean;
+  partialHousingBonusAmount: string;
+  
 }
 
 export interface DynamicForm {

@@ -53,9 +53,7 @@ export class AuthService {
     }
   }
 
-  async logout(event: Event) {
-    event.preventDefault();
-    event.stopPropagation();
+  async logout() {
     try {
       await this.afAuth.signOut();
       console.log('logged out');

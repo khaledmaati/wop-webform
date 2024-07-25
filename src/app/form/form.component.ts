@@ -47,6 +47,10 @@ export class FormComponent implements OnInit {
       postleitzahl: [{ value: '', disabled: true }, Validators.required],
       familienstand: [{ value: '', disabled: false }, Validators.required],
       dynamicForms: this.fb.array([]),
+      noOtherHousingBonus: [{ value: '', disabled: false }, Validators.required],
+      partialHousingBonus: [{ value: '', disabled: false }, Validators.required],
+      consentAsSpouse: [{ value: '', disabled: false }, Validators.required],
+      partialHousingBonusAmount: [{ value: '', disabled: false }, Validators.required],
     });
   }
 
@@ -62,6 +66,24 @@ export class FormComponent implements OnInit {
     return this.form.get('dynamicForms') as FormArray;
   }
 
+/*
+  addForm(): void {
+    const formGroup = this.fb.group({
+      vertragsnummer: ['', Validators.required],
+      abschlussdatum: ['', Validators.required],
+      bausparsumme: ['', Validators.required],
+      bausparbeitrag: ['', Validators.required],
+      hoechstbetrag: ['', Validators.required],
+      vermoegenswirksameLeistungen: ['', Validators.required]
+    });
+    this.dynamicForms.push(formGroup);
+  }
+
+  removeForm(index: number): void {
+    this.dynamicForms.removeAt(index);
+  }
+
+*/
   private async fetchDocumentData(uid: string): Promise<void> {
     try {
       const docSnapshot = await this.firestore.collection('wohnungsbaupraemie').doc(uid).get().toPromise();
@@ -87,6 +109,10 @@ export class FormComponent implements OnInit {
             bundesland: data.bundesland,
             postleitzahl: data.postleitzahl,
             familienstand: data.familienstand,
+            noOtherHousingBonus: data.noOtherHousingBonus,
+            partialHousingBonus: data.partialHousingBonus,
+            consentAsSpouse: data.consentAsSpouse,
+            partialHousingBonusAmount: data.partialHousingBonusAmount,
           });
 
           const dynamicFormsArray = this.form.get('dynamicForms') as FormArray;
@@ -94,7 +120,7 @@ export class FormComponent implements OnInit {
             data.dynamicForms.forEach((dynamicForm: DynamicForm) => {
               const formGroup = this.fb.group({
                 vertragsnummer: [{ value: dynamicForm.vertragsnummer, disabled: true }],
-                abschlussdatum: [{ value: dynamicForm.abschlussdatum, disabled: true }],
+                abschlussdatum: [{ value: dynamicForm.abschlussdatum, disabled: false }],
                 bausparsumme: [{ value: dynamicForm.bausparsumme, disabled: false }],
                 bausparbeitrag: [{ value: dynamicForm.bausparbeitrag, disabled: true }],
                 hoechstbetrag: [{ value: dynamicForm.hoechstbetrag, disabled: true }],

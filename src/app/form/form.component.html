@@ -1,11 +1,12 @@
 <app-navbar></app-navbar>
 <!-- Set styles dynamically based on Sparkasse -->
 <div [ngClass]="dynamicClass">
-  <div  class="container p-5">
+  <div class="container p-5">
     <h1 class="mb-3">Antrag auf Wohnungsbauprämie {{ jahr }}</h1>
     <h2 class="mb-2">für Bausparbeiträge (§ 2 Abs. 1 Nr. 1 WoPG)</h2>
     <p class="mb-4">
-      Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember {{ jahr + 2 }}
+      Abgabe eines Antrags je Bausparkasse spätestens bis zum 31. Dezember
+      {{ jahr + 2 }}
     </p>
     <form [formGroup]="form" (ngSubmit)="onSubmit()">
       <!-- Identifikationsnummer Section -->
@@ -74,6 +75,7 @@
         <legend>Ehegatte/Lebenspartner</legend>
         <div class="row">
           <div class="col">
+            <label for="familienname" class="form-label">Familienname *</label>
             <input
               type="text"
               class="form-control"
@@ -82,6 +84,7 @@
             />
           </div>
           <div class="col">
+            <label for="vorname" class="form-label">Vorname *</label>
             <input
               type="text"
               class="form-control"
@@ -90,6 +93,7 @@
             />
           </div>
           <div class="col">
+            <label for="geburtsdatum" class="form-label">Geburtsdatum *</label>
             <input
               type="date"
               class="form-control"
@@ -105,22 +109,26 @@
           Wohnsitz des/der Prämienberechtigten bei Antragstellung *
         </legend>
         <div class="row g-3">
-          <div class="col-12">
+          <div class="col-md-8">
             <label for="strasse" class="form-label">Straße</label>
             <input
               type="text"
               class="form-control"
               id="strasse"
               formControlName="strasse"
+              placeholder="Straße eingeben"
+              required
             />
           </div>
-          <div class="col-12">
+          <div class="col-md-4">
             <label for="hausnummer" class="form-label">Hausnummer</label>
             <input
               type="text"
               class="form-control"
               id="hausnummer"
               formControlName="hausnummer"
+              placeholder="Hausnummer eingeben"
+              required
             />
           </div>
           <div class="col-md-6">
@@ -130,6 +138,8 @@
               class="form-control"
               id="stadt"
               formControlName="stadt"
+              placeholder="Stadt eingeben"
+              required
             />
           </div>
           <div class="col-md-4">
@@ -138,12 +148,25 @@
               class="form-select"
               id="bundesland"
               formControlName="bundesland"
+              required
             >
-              <option selected>Bitte wählen...</option>
-              <option>Hessen</option>
-              <option>Berlin</option>
-              <option>Bayern</option>
+              <option value="" disabled selected>Bitte wählen...</option>
               <option>Baden-Württemberg</option>
+              <option>Bayern</option>
+              <option>Berlin</option>
+              <option>Brandenburg</option>
+              <option>Bremen</option>
+              <option>Hamburg</option>
+              <option>Hessen</option>
+              <option>Mecklenburg-Vorpommern</option>
+              <option>Niedersachsen</option>
+              <option>Nordrhein-Westfalen</option>
+              <option>Rheinland-Pfalz</option>
+              <option>Saarland</option>
+              <option>Sachsen</option>
+              <option>Sachsen-Anhalt</option>
+              <option>Schleswig-Holstein</option>
+              <option>Thüringen</option>
             </select>
           </div>
           <div class="col-md-2">
@@ -153,6 +176,8 @@
               class="form-control"
               id="postleitzahl"
               formControlName="postleitzahl"
+              placeholder="PLZ"
+              required
             />
           </div>
         </div>
@@ -162,7 +187,7 @@
         <label for="familienstand" class="form-label">
           Für das Sparjahr 2022 besteht Anspruch auf Wohnungsbauprämie als
         </label>
-      
+
         <div class="form-check">
           <input
             class="form-check-input"
@@ -191,7 +216,7 @@
           </label>
         </div>
       </fieldset>
-      
+
       <!-- Expenditure Information Section -->
       <fieldset class="mb-4">
         <legend>II. Aufwendungen, für die eine Prämie beantragt wird</legend>
@@ -210,105 +235,99 @@
           [formGroupName]="i"
           class="mb-4"
         >
-          <fieldset>
-            <legend>Vertrag Nummer {{ i + 1 }}</legend>
-            <div class="flex-row mb-3">
-              <div class="row">
-                <div class="col mb-3">
-                  <label for="vertragsnummer-{{ i }}" class="form-label">
-                    Vertragsnummer
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="vertragsnummer"
-                    id="vertragsnummer-{{ i }}"
-                    placeholder="Vertragsnummer"
-                  />
-                </div>
+          <fieldset class="border p-4">
+            <legend class="w-auto px-2">Vertrag Nummer {{ i + 1 }}</legend>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="vertragsnummer-{{ i }}" class="form-label">
+                  Vertragsnummer
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="vertragsnummer"
+                  id="vertragsnummer-{{ i }}"
+                  placeholder="Vertragsnummer"
+                />
               </div>
+              <div class="col-md-6">
+                <label for="abschlussdatum-{{ i }}" class="form-label">
+                  Abschlussdatum Monat/Jahr
+                </label>
+                <input
+                  type="month"
+                  class="form-control"
+                  formControlName="abschlussdatum"
+                  id="abschlussdatum-{{ i }}"
+                  placeholder="MM/JJJJ"
+                />
+              </div>
+            </div>
 
-              <div class="row">
-                <div class="col mb-3">
-                  <label for="abschlussdatum-{{ i }}" class="form-label">
-                    Abschlussdatum Monat/Jahr
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="abschlussdatum"
-                    id="abschlussdatum-{{ i }}"
-                    placeholder="Abschlussdatum"
-                  />
-                </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="bausparsumme-{{ i }}" class="form-label">
+                  Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
+                  Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
+                  Prämienauszahlung
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="bausparsumme"
+                  id="bausparsumme-{{ i }}"
+                  placeholder="Aufwendungen 2022"
+                />
               </div>
+              <div class="col-md-6">
+                <label for="bausparbeitrag-{{ i }}" class="form-label">
+                  Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
+                  Kontoauszug (auf volle Euro aufgerundet) mit Anspruch auf
+                  Prämienvormerkung
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="bausparbeitrag"
+                  id="bausparbeitrag-{{ i }}"
+                  placeholder="Aufwendungen 2022 Prämienvormerkung"
+                />
+              </div>
+            </div>
 
-              <div class="row">
-                <div class="col mb-3">
-                  <label for="bausparsumme-{{ i }}" class="form-label">
-                    Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
-                    Kontoauszug
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="bausparsumme"
-                    id="bausparsumme-{{ i }}"
-                    placeholder="Aufwendungen 2022"
-                  />
-                </div>
+            <div class="row mb-3">
+              <div class="col-md-6">
+                <label for="hoechstbetrag-{{ i }}" class="form-label">
+                  Bei Überschreitung des Höchstbetrags Prämiengewährung
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="hoechstbetrag"
+                  id="hoechstbetrag-{{ i }}"
+                  placeholder="Höchstbetrag Prämiengewährung"
+                />
               </div>
+              <div class="col-md-6">
+                <label
+                  for="vermoegenswirksameLeistungen-{{ i }}"
+                  class="form-label"
+                >
+                  nachrichtlich: vermögenswirksame Leistungen
+                </label>
+                <input
+                  type="text"
+                  class="form-control"
+                  formControlName="vermoegenswirksameLeistungen"
+                  id="vermoegenswirksameLeistungen-{{ i }}"
+                  placeholder="vermögenswirksame Leistungen"
+                />
+              </div>
+            </div>
 
-              <div class="row">
-                <div class="col mb-3">
-                  <label for="bausparbeitrag-{{ i }}" class="form-label">
-                    Aufwendungen 2022 (ohne vermögenswirksame Leistungen) lt.
-                    Kontoauszug mit Prämienvormerkung
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="bausparbeitrag"
-                    id="bausparbeitrag-{{ i }}"
-                    placeholder="Aufwendungen 2022 Prämienvormerkung"
-                  />
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col mb-3">
-                  <label for="hoechstbetrag-{{ i }}" class="form-label">
-                    Bei Überschreitung des Höchstbetrags Prämiengewährung
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="hoechstbetrag"
-                    id="hoechstbetrag-{{ i }}"
-                    placeholder="Höchstbetrag Prämiengewährung"
-                  />
-                </div>
-              </div>
-
-              <div class="row">
-                <div class="col mb-3">
-                  <label
-                    for="vermoegenswirksameLeistungen-{{ i }}"
-                    class="form-label"
-                  >
-                    nachrichtlich: vermögenswirksame Leistungen
-                  </label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    formControlName="vermoegenswirksameLeistungen"
-                    id="vermoegenswirksameLeistungen-{{ i }}"
-                    placeholder="vermögenswirksame Leistungen"
-                  />
-                </div>
-              </div>
-              <!--
-              <div class="col-auto align-self-end">
+            <!---
+            <div class="row">
+              <div class="col text-end">
                 <button
                   type="button"
                   class="btn btn-danger me-2"
@@ -324,14 +343,88 @@
                   Vertrag hinzufügen
                 </button>
               </div>
-
-              -->
             </div>
+
+            -->
           </fieldset>
         </div>
       </div>
+      <!-- end of DynamicForms-->
 
-      <div class="text-center">
+      <!-- Claim Information Section -->
+      <fieldset class="mb-4">
+        <p>
+          <strong>
+            Die nachstehenden Angaben sind für die Ermittlung der Prämie
+            erforderlich.
+          </strong>
+        </p>
+
+        <!-- Checkbox 1 -->
+        <div class="form-check">
+          <input
+            id="noOtherHousingBonus"
+            formControlName="noOtherHousingBonus"
+            value="ja"
+            class="form-check-input"
+            type="checkbox"
+            required
+            name="noOtherHousingBonus"
+          />
+          <label class="form-check-label" for="noOtherHousingBonus">
+            Für das Jahr 2023 habe(n) ich(wir) keine Wohnungsbauprämie bei
+            anderen Bausparkassen/Unternehmen beantragt. *
+          </label>
+        </div>
+
+        <!-- Checkbox 2 -->
+        <div class="form-check">
+          <input
+            id="partialHousingBonus"
+            formControlName="partialHousingBonus"
+            class="form-check-input"
+            type="checkbox"
+            required
+            name="partialHousingBonus"
+          />
+          <label class="form-check-label" for="partialHousingBonus">
+            Für das Jahr 2023 habe(n) ich(wir) bereits eine Wohnungsbauprämie
+            bei anderen Bausparkassen/Unternehmen beantragt, aber den
+            prämienbegünstigten Höchstbetrag (700/1.400) noch nicht voll
+            ausgeschöpft. Ich(wir) habe(n) Aufwendungen in Höhe von
+            <input
+              type="text"
+              class="form-control d-inline-block w-auto ms-2"
+              placeholder="Euro"
+              required
+              aria-label="Betrag in Euro"
+              formControlName="partialHousingBonusAmount"
+              name="partialHousingBonusAmount"
+            />
+            Euro geltend gemacht. *
+          </label>
+        </div>
+
+        <!-- Checkbox 3 -->
+        <div class="form-check">
+          <input
+            id="consentAsSpouse"
+            formControlName="consentAsSpouse"
+            class="form-check-input"
+            type="checkbox"
+            required
+            name="consentAsSpouse"
+          />
+          <label class="form-check-label" for="consentAsSpouse">
+            Ich stimme dem Prämienantrag als Ehegatte/Lebenspartner* oder als
+            gesetzlicher Vertreter zu. Die Angaben in diesem Antrag werden nach
+            §§ 4, 4a des Wohnungsbau-Prämiengesetzes erhoben. Hiermit willige(n)
+            ich/wir in die Datenverarbeitung und Datenübermittlung an die
+            Finanzbehörden ein. *
+          </label>
+        </div>
+      </fieldset>
+      <div class="text-center submit-button-padding">
         <button type="submit" class="btn btn-primary">Absenden</button>
       </div>
     </form>

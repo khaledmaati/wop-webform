@@ -196,6 +196,10 @@ export class FormRetrievalComponent implements OnInit {
       postleitzahl: data.postleitzahl ?? '',
       familienstand: data.familienstand ?? '',
       dynamicForms: transformedDynamicForms,
+      noOtherHousingBonus: data.noOtherHousingBonus ?? '',
+      partialHousingBonus: data.partialHousingBonus ?? '',
+      consentAsSpouse: data.consentAsSpouse ?? '',
+      partialHousingBonusAmount: data.partialHousingBonusAmount ?? '',
     };
   
     console.log('Document Data:', documentData); // Log the final documentData object

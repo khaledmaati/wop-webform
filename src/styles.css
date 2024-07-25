@@ -20,6 +20,11 @@
   margin-bottom: 200;
 }
 
+.submit-button-padding {
+  padding-top: 10vh ;
+  padding-bottom: 10vh ;
+}
+
 .wüstenrot {
   font-family: sans-serif;
   font-size: 15px;
