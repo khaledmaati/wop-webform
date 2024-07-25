@@ -72,7 +72,11 @@ export class DataTableComponent implements OnInit {
           { title: 'Bausparkasse', data: 'bausparkasse' },
           { title: 'Jahr', data: 'jahr' },
           { title: 'Status', data: 'status' }
-        ]
+        ],
+        language: {
+          url: 'https://cdn.datatables.net/plug-ins/2.1.2/i18n/de-DE.json',
+      },
+  
       });
 
       // Add row click event

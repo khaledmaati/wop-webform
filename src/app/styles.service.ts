@@ -20,9 +20,9 @@ export class StylesService {
   getLogo(bausparkasse: string): string {
     switch (bausparkasse) {
       case 'Wüstenrot':
-        return '../../assets/logo-wuestenrot.svg';
+        return 'https://www.wuestenrot.de/media/assets/img/ci/WW_logo-wuestenrot-2019.svg';
       case 'Schwäbisch Hall':
-        return '../../assets/logo-schwaebisch-hall.svg';
+        return 'https://www.schwaebisch-hall.de/content/experience-fragments/bshweb/site/header/master/_jcr_content/root/par/container/logo.coreimg.svg/1687934768061/logo-bausparkasse-schwaebisch-hall.svg';
       default:
         return '../../assets/logo-schwaebisch-hall.svg';
     }
