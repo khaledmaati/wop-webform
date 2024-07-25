@@ -110,11 +110,17 @@ export class FormRetrievalComponent implements OnInit {
 
   uploadFiles(): void {
     if (this.selectedFiles.length > 0) {
+      let filesProcessed = 0;
       this.selectedFiles.forEach(file => {
         const reader = new FileReader();
         reader.onload = (e) => {
           const xml = e.target?.result as string;
           this.parseXmlAndSaveToFirestore(xml);
+          filesProcessed++;
+          if (filesProcessed === this.selectedFiles.length) {
+            alert('All files have been uploaded successfully.');
+            this.clearSelectedFiles(); // Clear the list of selected files
+          }
         };
         reader.readAsText(file);
       });
@@ -122,7 +128,14 @@ export class FormRetrievalComponent implements OnInit {
       alert('Please select files first.');
     }
   }
-
+  
+  clearSelectedFiles(): void {
+    this.selectedFiles = [];
+    if (this.xmlFileInput) {
+      this.xmlFileInput.nativeElement.value = ''; // Clear the file input element
+    }
+  }
+    
   parseXmlAndSaveToFirestore(xml: string): void {
     parseString(xml, { explicitArray: false }, (err, result) => {
       if (err) {
@@ -193,13 +206,12 @@ export class FormRetrievalComponent implements OnInit {
   saveDataToFirestore(data: DocumentData): void {
     this.firestore.collection('wohnungsbaupraemie').add(data).then(() => {
       console.log('Data saved to Firestore successfully');
-      alert('Data saved to Firestore successfully');
     }).catch((error) => {
       console.error('Error saving data to Firestore:', error);
       alert('Error saving data to Firestore.');
     });
   }
-
+  
   // Drag and drop handling
   onDrop(event: DragEvent): void {
     event.preventDefault();
