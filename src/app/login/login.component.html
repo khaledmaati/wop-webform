@@ -1,10 +1,11 @@
-<div class="container">
+<div class="full-screen-container">
+  <div class="container">
   <div class="row justify-content-center">
     <div class="col-md-6">
       <div class="p-5">
         <form (ngSubmit)="loginUser()" id="login-form" #loginForm="ngForm">
           <!-- Pills navs -->
-          <ul class="nav nav-pills nav-justified mb-3" id="ex1" role="tablist">
+          <ul class="nav nav-tabs nav-justified mb-3" id="ex1" role="tablist">
             <li class="nav-item" role="presentation">
               <a
                 class="nav-link active"
@@ -103,4 +104,5 @@
   <div class="text-center">
     <p>Noch kein Mitglied? <a routerLink="/register">Registrieren</a></p>
   </div>
+</div>
 </div>

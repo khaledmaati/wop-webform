@@ -1,3 +1,9 @@
+.full-screen-container {
+  padding-top: 20vh ;
+  margin: 10px;
+  box-sizing: border-box;
+
+}
 .centered-div {
   display: flex;
   justify-content: center;
@@ -10,61 +16,94 @@
   margin: 10px; /* Adds space between the buttons */
 }
 
-.wüstenrot {
-  background: #f0f0f0;
-  color: #f84914;
+.space-below {
+  margin-bottom: 200;
 }
 
-.schwäbischHall {
-  color: #fff02d;
+.wüstenrot {
+  font-family: sans-serif;
+  font-size: 15px;
+}
+
+.wüstenrot .btn {
+  background: #f84914;
+  color: #fff;
+  box-sizing: border-box;
+  border-radius: 10px;
+  font-weight: bold;
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.wüstenrot .form-control {
+  border-color: #f84914;
+}
+
+.wüstenrot .form-select {
+  border-color: #f84914;
+}
+
+
+.wüstenrot .form-check-input {
+  background-color: #f84914;
+  border-color: #f84914;
+
+}
+
+.wüstenrot .custom-navbar {
+  background-color: #ffffff;
+}
+
+
+
+
+
+
+
+
+.schwäbischHall .btn {
+  background: #e6002d;
+  color: #fff;
+  box-sizing: border-box;
+  border-radius: 50px;
   font-family: "Fuchs-Regular", Arial, Helvetica, sans-serif;
   font-size: 16px;
   line-height: 24px;
-  color: var(--text-primary);
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-font-smoothing: antialiased;
-  text-rendering: optimizeLegibility;
-  font-weight: normal;
-  background-color: #fff;
-  min-height: 100%;
-  --color-primary: var(--color-red);
-  --color-secondary: var(--color-yellow);
-  --text-primary: var(--color-black);
-  --text-link: var(--color-primary);
-  --text-link-hover: var(--color-torch-red);
-  --text-link-active: var(--color-monza);
-  --background-primary: var(--color-primary);
-  --background-secondary: var(--color-secondary);
-  --background-header: var(--color-secondary);
-  --background-header-phone: var(--color-white);
-  --button-primary-default: var(--color-primary);
-  --button-primary-hover: var(--color-torch-red);
-  --button-primary-active: var(--color-monza);
-  --button-secondary-default: var(--color-white);
-  --button-secondary-hover: var(--color-wisp-pink);
-  --button-secondary-active: var(--color-azalea);
-  --li-before-default: var(--color-primary);
-  --color-red: #e6002d;
-  --color-yellow: #fff02d;
-  --color-white: #fff;
-  --color-black: #000;
-  --color-mystic: #e2e8ed;
-  --color-lemon-chiffon: #fffac8;
-  --color-torch-red: #fa0041;
-  --color-monza: #b70030;
-  --color-kournikova: #fff082;
-  --color-ripe-lemon: #f0d71e;
-  --color-athens-gray: #f0f3f6;
-  --color-iron: #d0d5d9;
-  --color-hit-gray: #a0abb2;
-  --color-slate-gray: #72828d;
-  --color-fiord: #425866;
-  --color-malachite: #00bb2d;
-  --color-wisp-pink: #fceaee;
-  --color-azalea: #fbdfe6;
-  --height-header: 60px;
-  --spacing-base: 20px;
+  font-weight: bold;
+  padding-left: 40px;
+  padding-right: 40px;
+
 }
+
+.schwäbischHall .form-control {
+  border-color: #fff02d;
+}
+
+.schwäbischHall .form-select {
+  border-color: #fff02d;
+}
+
+
+.schwäbischHall .form-check-input {
+  
+  background-color: #fff02d;
+  border-color: #fff02d;
+
+}
+
+.schwäbischHall .custom-navbar {
+  background-color: #fff02d;
+}
+
+
+
+
+
+
+
+
+
+
 
 .default-class {
   background: #f0f0f0;

@@ -45,7 +45,7 @@ export class FormComponent implements OnInit {
       stadt: [{ value: '', disabled: true }, Validators.required],
       bundesland: [{ value: '', disabled: true }, Validators.required],
       postleitzahl: [{ value: '', disabled: true }, Validators.required],
-      familienstand: [{ value: '', disabled: true }, Validators.required],
+      familienstand: [{ value: '', disabled: false }, Validators.required],
       dynamicForms: this.fb.array([]),
     });
   }
@@ -130,7 +130,7 @@ export class FormComponent implements OnInit {
     if (this.form.valid) {
       if (this.documentId) {
         // Prepare the main form data with the 'status' field
-        const formData = { ...this.getFormValuesWithDisabled(this.form), status: 'submitted' };
+        const formData = { ...this.getFormValuesWithDisabled(this.form), status: 'Übermittelt' };
 
         // Update the existing document
         this.firestore.collection('wohnungsbaupraemie').doc(this.documentId).update(formData)
