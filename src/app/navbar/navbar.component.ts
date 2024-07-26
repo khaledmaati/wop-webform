@@ -16,6 +16,5 @@ export class NavbarComponent {
     public stylesService: StylesService,
     public formComponent: FormComponent
   ) {}
-  
-  
+
 }

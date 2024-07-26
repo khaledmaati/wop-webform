@@ -4,6 +4,7 @@ import { saveAs } from 'file-saver-es';
 import { parseString } from 'xml2js';
 import { AuthService } from '../auth.service';
 import { DocumentData, FirestoreService } from '../firestore.service';
+import { StylesService } from '../styles.service';
 
 @Component({
   selector: 'app-form-retrieval',
@@ -21,8 +22,9 @@ export class FormRetrievalComponent implements OnInit {
 
   constructor(
     private firestoreService: FirestoreService,
-    public authService: AuthService,
-    private firestore: AngularFirestore
+    private authService: AuthService,
+    private firestore: AngularFirestore,
+    public stylesService: StylesService
   ) {}
 
   async ngOnInit(): Promise<void> {
@@ -40,9 +42,14 @@ export class FormRetrievalComponent implements OnInit {
   }
 
   fetchData(): void {
+    if (!this.taxID) {
+      alert('Please enter a tax ID.');
+      return;
+    }
+
     this.firestoreService.getDataByTaxID(this.taxID).subscribe(
-      (result) => {
-        if (result.length > 0) {
+      (result: any[]) => {
+        if (Array.isArray(result) && result.length > 0) {
           this.data = result; // Store all documents
           this.downloadXml();
         } else {
@@ -104,7 +111,12 @@ export class FormRetrievalComponent implements OnInit {
   onFilesSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files) {
-      this.selectedFiles = Array.from(input.files);
+      this.selectedFiles = Array.from(input.files).filter(file => 
+        file.type === 'application/xml' || file.name.endsWith('.xml')
+      );
+      if (this.selectedFiles.length === 0) {
+        alert('Please select XML files only.');
+      }
     }
   }
 
@@ -128,14 +140,14 @@ export class FormRetrievalComponent implements OnInit {
       alert('Please select files first.');
     }
   }
-  
+
   clearSelectedFiles(): void {
     this.selectedFiles = [];
     if (this.xmlFileInput) {
       this.xmlFileInput.nativeElement.value = ''; // Clear the file input element
     }
   }
-    
+
   parseXmlAndSaveToFirestore(xml: string): void {
     parseString(xml, { explicitArray: false }, (err, result) => {
       if (err) {
@@ -151,12 +163,12 @@ export class FormRetrievalComponent implements OnInit {
   private transformXmlToDocumentData(result: any): DocumentData {
     const data = result.data || {};
     console.log('Data:', data); // Log the data object
-  
+
     const dynamicForms = data.dynamicForms;
     console.log('Dynamic Forms:', dynamicForms); // Log the dynamicForms
-  
+
     let transformedDynamicForms: any[] = [];
-  
+
     if (Array.isArray(dynamicForms)) {
       transformedDynamicForms = dynamicForms.map((form: any) => ({
         vertragsnummer: form.vertragsnummer ?? '',
@@ -176,7 +188,7 @@ export class FormRetrievalComponent implements OnInit {
         vermoegenswirksameLeistungen: dynamicForms.form.vermoegenswirksameLeistungen ?? '',
       }];
     }
-  
+
     const documentData: DocumentData = {
       bausparkasse: data.bausparkasse ?? '',
       jahr: data.jahr ?? '',
@@ -201,28 +213,36 @@ export class FormRetrievalComponent implements OnInit {
       consentAsSpouse: data.consentAsSpouse ?? '',
       partialHousingBonusAmount: data.partialHousingBonusAmount ?? '',
     };
-  
+
     console.log('Document Data:', documentData); // Log the final documentData object
-  
+
     return documentData;
   }
 
   saveDataToFirestore(data: DocumentData): void {
-    this.firestore.collection('wohnungsbaupraemie').add(data).then(() => {
-      console.log('Data saved to Firestore successfully');
-    }).catch((error) => {
-      console.error('Error saving data to Firestore:', error);
-      alert('Error saving data to Firestore.');
-    });
+    this.firestore.collection('wohnungsbaupraemie').add(data)
+      .then(() => {
+        console.log('Data saved to Firestore successfully');
+        alert('Data has been successfully saved to Firestore.');
+      })
+      .catch((error) => {
+        console.error('Error saving data to Firestore:', error);
+        alert('Error saving data to Firestore.');
+      });
   }
-  
+
   // Drag and drop handling
   onDrop(event: DragEvent): void {
     event.preventDefault();
     event.stopPropagation();
     const files = event.dataTransfer?.files;
     if (files) {
-      this.selectedFiles = Array.from(files);
+      this.selectedFiles = Array.from(files).filter(file => 
+        file.type === 'application/xml' || file.name.endsWith('.xml')
+      );
+      if (this.selectedFiles.length === 0) {
+        alert('Please drop XML files only.');
+      }
     }
     this.updateDropZone(false);
   }

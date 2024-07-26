@@ -8,7 +8,7 @@ import { AuthService } from '../auth.service';
 })
 export class NavbarWithoutLogoComponent {
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
   ){}
 
 

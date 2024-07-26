@@ -24,6 +24,7 @@ import { DataTableComponent } from './data-table/data-table.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { SubmitConfirmationComponent } from './submit-confirmation/submit-confirmation.component';
 import { NavbarWithoutLogoComponent } from './navbar-without-logo/navbar-without-logo.component';
+import { NavbarSuperUserComponent } from './navbar-super-user/navbar-super-user.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,8 @@ import { NavbarWithoutLogoComponent } from './navbar-without-logo/navbar-without
     DataTableComponent,
     NavbarComponent,
     SubmitConfirmationComponent,
-    NavbarWithoutLogoComponent
+    NavbarWithoutLogoComponent,
+    NavbarSuperUserComponent
   ],
 
   imports: [

@@ -24,7 +24,7 @@ export class StylesService {
       case 'Schwäbisch Hall':
         return 'https://www.schwaebisch-hall.de/content/experience-fragments/bshweb/site/header/master/_jcr_content/root/par/container/logo.coreimg.svg/1687934768061/logo-bausparkasse-schwaebisch-hall.svg';
       default:
-        return '../../assets/logo-schwaebisch-hall.svg';
+        return 'N/A';
     }
   }
 }

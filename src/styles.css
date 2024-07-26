@@ -17,7 +17,11 @@
 }
 
 .space-below {
-  margin-bottom: 200;
+  margin-bottom: 200px;
+}
+
+.space-top {
+  padding-top: 100px;
 }
 
 .submit-button-padding {
@@ -32,6 +36,7 @@
 
 .wüstenrot .btn {
   background: #f84914;
+  border-color: #f84914;
   color: #fff;
   box-sizing: border-box;
   border-radius: 10px;
@@ -41,18 +46,16 @@
 }
 
 .wüstenrot .form-control {
-  border-color: #f84914;
+  border-color: #fff;
 }
 
 .wüstenrot .form-select {
-  border-color: #f84914;
+  border-color: #fff;
 }
-
 
 .wüstenrot .form-check-input {
   background-color: #f84914;
   border-color: #f84914;
-
 }
 
 .wüstenrot .custom-navbar {
@@ -68,6 +71,7 @@
 
 .schwäbischHall .btn {
   background: #e6002d;
+  border-color: #e6002d;
   color: #fff;
   box-sizing: border-box;
   border-radius: 50px;
