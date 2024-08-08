@@ -12,6 +12,7 @@ import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
 import { AngularFireDatabaseModule } from '@angular/fire/compat/database';
 import { ReactiveFormsModule } from '@angular/forms'; // Import ReactiveFormsModule
 import { environment } from '../environments/environment';
+import { AngularFireAnalyticsModule } from '@angular/fire/compat/analytics';
 
 
 import { RouterModule } from '@angular/router';
@@ -47,6 +48,7 @@ import { NavbarSuperUserComponent } from './navbar-super-user/navbar-super-user.
     FormsModule,
     // ** Google Firebase Modules **
     AngularFireModule.initializeApp(environment.firebase),
+    AngularFireAnalyticsModule,
     AngularFireAuthModule,
     AngularFirestoreModule,
     AngularFireDatabaseModule,
